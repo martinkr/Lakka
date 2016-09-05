@@ -1,0 +1,47 @@
+# ignore ...
+# > if you change the .gitignore file, you need to apply the changes with:
+# > $ git rm -r --cached .
+# > $ git add .
+# > $ git commit -m "updated and applied .gitignore"
+
+
+# ###
+# project specific, add your patterns here
+
+coverage/*
+coverage.html
+node_modules/*
+
+# ###
+## sublime files
+
+*.sublime-*
+*.sublime-*
+
+# ###
+## osx files
+
+._*
+.DS*
+.Spotlight-V100
+.Trashes
+
+# ###
+## windows files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# ###
+## misc
+.lock
+*.log
+.vagrant
+.git
+
+
+
+
+

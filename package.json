@@ -1,0 +1,51 @@
+{
+    "name": "Lakka",
+    "version": "0.5.0",
+    "description": "Lakka is designed as an AJAX / XMLHTTPRequest / fetch-API accelerator. Lakka focuses exclusively on caching json requests.",
+    "scripts": {
+        "build": "mocha  --compilers js:babel/register ",
+        "test": "mocha  --compilers js:babel/register ",
+        "coverage": "babel-node ./node_modules/.bin/isparta cover --report text --report html _mocha -- --reporter progress"
+    },
+    "jsnext:main": "src/main.js",
+    "main" : "dist/main.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/martinkr/Lakka"
+    },
+    "bugs": "https://github.com/martinkr/Lakka",
+    "homepage": "https://github.com/martinkr/Lakka",
+    "keywords": [
+        "es6",
+        "cache",
+        "json",
+        "localStorage",
+        "storage",
+        "ajax",
+        "xhr",
+        "xmlhttprequest",
+        "fetch",
+        "performance"
+    ],
+    "author": {
+        "name": "Martin Krause",
+        "email": "public@mkrause.info",
+        "url": "http://mkrause.info"
+    },
+    "contributors": [],
+    "license": "MIT",
+    "dependencies": {
+        "es6-murmurhash": ""
+    },
+    "devDependencies": {
+        "babel": "^5.8.29",
+        "chai": "^3.2.0",
+        "chai-as-promised": "^5.2.0",
+        "eslint": "^1.7.3",
+        "isparta": "^3.0.4",
+        "istanbul": "^0.3.17",
+        "mocha": "^2.2.5",
+        "sinon": "^1.17.3",
+        "sinon-chai": "^2.8.0"
+    }
+}
