@@ -25,7 +25,7 @@ let window = window || null
 // private vars
 const
 	namespace = "lakka:",
-	storage = (window && window.sessionStorage) ? window.sessionStorage : (() => {
+	storage = (window && window.localStorage) ? window.localStorage : (() => {
 		// just an in memory mock
 		let storage = {};
 		return {

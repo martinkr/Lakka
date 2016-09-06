@@ -33,7 +33,7 @@ var window = window || null;
  */
 
 var namespace = "lakka:",
-    storage = window && window.sessionStorage ? window.sessionStorage : function () {
+    storage = window && window.localStorage ? window.localStorage : function () {
 	// just an in memory mock
 	var storage = {};
 	return {
