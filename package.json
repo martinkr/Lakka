@@ -1,18 +1,18 @@
 {
   "name": "lakka-core",
-  "version": "1.0.3",
+  "version": "2.0.0-alpha",
   "description": "lakka. An advanced client-side cache.",
   "main": "./app/main.js",
   "license": "MIT",
   "engines": {
-    "node": ">=8.5.5"
+    "node": ">=9.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/martinkr/lakka-core"
+    "url": "https://github.com/martinkr/lakka"
   },
-  "homepage": "https://github.com/martinkr/lakka-core",
-  "issues": "https://github.com/martinkr/lakka-core/issues",
+  "homepage": "https://github.com/martinkr/lakka",
+  "issues": "https://github.com/martinkr/lakka/issues",
   "author": "Martin Krause <github@mkrause.info> (http://martinkr.github.io)",
   "keywords": [],
   "scripts": {
