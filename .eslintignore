@@ -1,0 +1,9 @@
+./build/*
+./node_modules/*
+./dev/clientlib-all/js/build/*.js
+*lazy*.js
+*.min.js
+*.bundle.js
+./dev/test/spec/*
+_*.js
+./feops/*

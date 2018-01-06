@@ -1,50 +1,43 @@
 {
-    "name": "Lakka",
-    "version": "0.5.0",
-    "description": "Lakka is designed as an AJAX / XMLHTTPRequest / fetch-API accelerator. Lakka focuses exclusively on caching json requests.",
-    "scripts": {
-        "test": "mocha  --compilers js:babel/register ",
-        "coverage": "babel-node ./node_modules/.bin/isparta cover --report text --report html _mocha -- --reporter progress"
-    },
-    "jsnext:main": "src/main.js",
-    "main" : "dist/main.js",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/martinkr/Lakka"
-    },
-    "bugs": "https://github.com/martinkr/Lakka",
-    "homepage": "https://github.com/martinkr/Lakka",
-    "keywords": [
-        "es6",
-        "cache",
-        "json",
-        "localStorage",
-        "storage",
-        "ajax",
-        "xhr",
-        "xmlhttprequest",
-        "fetch",
-        "performance"
-    ],
-    "author": {
-        "name": "Martin Krause",
-        "email": "public@mkrause.info",
-        "url": "http://mkrause.info"
-    },
-    "contributors": [],
-    "license": "MIT",
-    "dependencies": {
-        "es6-murmurhash": ""
-    },
-    "devDependencies": {
-        "babel": "^5.8.29",
-        "chai": "^3.2.0",
-        "chai-as-promised": "^5.2.0",
-        "eslint": "^1.7.3",
-        "isparta": "^3.0.4",
-        "istanbul": "^0.3.17",
-        "mocha": "^2.2.5",
-        "sinon": "^1.17.3",
-        "sinon-chai": "^2.8.0"
-    }
+  "name": "lakka-core",
+  "version": "1.0.3",
+  "description": "lakka. An advanced client-side cache.",
+  "main": "./app/main.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.5.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/martinkr/lakka-core"
+  },
+  "homepage": "https://github.com/martinkr/lakka-core",
+  "issues": "https://github.com/martinkr/lakka-core/issues",
+  "author": "Martin Krause <github@mkrause.info> (http://martinkr.github.io)",
+  "keywords": [],
+  "scripts": {
+    "eslint": "./node_modules/.bin/eslint ./app/**/*.js",
+    "mocha": "./node_modules/mocha/bin/mocha --reporter spec",
+    "nyc": "./node_modules/.bin/nyc --clean ./node_modules/.bin/mocha",
+    "coverage": "./node_modules/.bin/nyc check-coverage --lines 100 --functions 100 --branches 100 --statements 100",
+    "report": "./node_modules/.bin/nyc report --reporter=lcov --reporter=html",
+    "test": "yarn eslint && yarn nyc && yarn report && yarn coverage",
+    "mocha-watch": "./node_modules/.bin/mocha --reporter min -w",
+    "eslint-watch": "./node_modules/.bin/esw --watch"
+  },
+  "dependencies": {
+    "foreverjs": "^1.1.241"
+  },
+  "devDependencies": {
+    "forever": "*",
+    "chai": "^4.1.1",
+    "eslint": "^4.4.1",
+    "eslint-watch": "3.1.2",
+    "fs-extra-plus": "0.1.3",
+    "mocha": "^3.5.0",
+    "nyc": "^11.2.1",
+    "proxyquire": "^1.8.0",
+    "sinon": "^4.0.2",
+    "sinon-chai": "^2.14.0"
+  }
 }

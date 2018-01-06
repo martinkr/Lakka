@@ -1,0 +1,29 @@
+{
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": ["jsdoc"]
+    },
+    "source": {
+        "include": ["./app"],
+        "includePattern": ".js$",
+        "excludePattern": "(node_modules/|docs)"
+    },
+"sourceType" : "module",
+    "plugins": [
+        "plugins/markdown",
+        "plugins/summarize"
+    ],
+    "templates": {
+        "cleverLinks": true,
+        "monospaceLinks": true,
+        "useLongnameInNav": true,
+        "showInheritedInNav": true
+    },
+    "opts": {
+        "template": "./node_modules/loke-jsdoc-theme",
+        "destination": "./docs/jsdoc",
+        "encoding": "utf8",
+        "private": true,
+        "recurse": true
+    }
+}

@@ -10,19 +10,27 @@ trim_trailing_whitespace=true
 insert_final_newline=true
 
 
-# Tabs in CSS, LESS, SASS, HTML
-[*.{js,html,css,scss,sass,less,myth}]
+# Tabs in CSS, LESS, SASS,HTML
+[*.js]
 indent_style=tab
-indent_size = 4
+[*.html]
+indent_style=tab
+[*.css]
+indent_style=tab
+[*.scss]
+indent_style=tab
+[*.sass]
+indent_style=tab
+[*.less]
+indent_style=tab
 
-# Spaces in JSON, .*rc, yml
-[*.{json,yml}]
+# Spaces in JSON
+[*.json]
 indent_style=space
-indent_size = 2
-
-[.*rc]
+#
+[*.*rc]
 indent_style=space
-indent_size = 2
+#
 
 [*.md]
 insert_final_newline=false
