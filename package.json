@@ -1,6 +1,6 @@
 {
   "name": "lakka",
-  "version": "2.0.0-alpha",
+  "version": "2.0.0-alpha.1",
   "description": "lakka. An advanced client-side cache.",
   "main": "./app/main.js",
   "license": "MIT",
