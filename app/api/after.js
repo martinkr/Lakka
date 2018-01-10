@@ -36,23 +36,7 @@ const createItem = require("./../cache/create-item.js");
 const throwIfInvalid = require("./../utils/throw-invalid.js");
 const getHeaderValue = require("./../header/utils/get-value.js");
 const checkHeaderValue = require("./../header/utils/check-value.js");
-
-/**
- * Curried function setting the item below "key" at "cache".
- * @curried
- * @sync
- * @param {Object} cache the cache to use
- * @return {Object|Error} the cached item or an Error if we should ignore this uri
- */
-const _setItemToCache = (cache) =>
-	/** @param {String} key the key for the lookup @return {function} */
-	(key) =>
-		/** @param {Object} item the item to store @return {Object} */
-		(item) => {
-			throwIfInvalid(cache.set(key, item) );
-};
-
-
+const setToCache = require("./../cache/set-item.js");
 
 /**
  * Handles all the caching steps to be done AFTER receiving the request's response
@@ -103,7 +87,7 @@ module.exports = (uri, responseText, statusCode, options) => {
 	let _item;
 	try {
 		_item = createItem(uri, responseText, options.headers);
-		_setItemToCache(cache)(createKey(uri))( _item );
+		setToCache(cache)(createKey(uri))( _item );
 	} catch (err) {
 		// just a safety net
 		/* istanbul ignore next */

@@ -35,6 +35,11 @@ describe(`The module "${thisModulePath}"`, () => {
 		done();
 	});
 
+	after((done) => {
+		spy.restore();
+		done();
+	});
+
 	beforeEach((done) => {
 		options = {
 			"headers": {
@@ -117,7 +122,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			thisModule(fn.fooFn)(options)("X-Bar").should.be.true;
 		}));
 
-		it("should  not throw if there's a value and the value does not pass the first curried function's parameter condition ", (() => {
+		it("should not throw if there's a value and the value does not pass the first curried function's parameter condition ", (() => {
 			try {
 				thisModule(fn.fooFn)(options)("X-Bar");
 			} catch (err) {

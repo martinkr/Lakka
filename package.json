@@ -1,5 +1,5 @@
 {
-  "name": "lakka-core",
+  "name": "lakka",
   "version": "2.0.0-alpha",
   "description": "lakka. An advanced client-side cache.",
   "main": "./app/main.js",
@@ -9,27 +9,26 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/martinkr/lakka"
+    "url": "git+https://github.com/martinkr/lakka.git"
   },
   "homepage": "https://github.com/martinkr/lakka",
   "issues": "https://github.com/martinkr/lakka/issues",
   "author": "Martin Krause <github@mkrause.info> (http://martinkr.github.io)",
   "keywords": [],
   "scripts": {
-    "eslint": "./node_modules/.bin/eslint ./app/**/*.js",
+    "eslint": "eslint ./app/**/*.js",
     "mocha": "./node_modules/mocha/bin/mocha --reporter spec",
-    "nyc": "./node_modules/.bin/nyc --clean ./node_modules/.bin/mocha",
-    "coverage": "./node_modules/.bin/nyc check-coverage --lines 100 --functions 100 --branches 100 --statements 100",
-    "report": "./node_modules/.bin/nyc report --reporter=lcov --reporter=html",
+    "nyc": "nyc --clean ./node_modules/.bin/mocha",
+    "coverage": "nyc check-coverage --lines 100 --functions 100 --branches 100 --statements 100",
+    "report": "nyc report --reporter=lcov --reporter=html",
     "test": "yarn eslint && yarn nyc && yarn report && yarn coverage",
-    "mocha-watch": "./node_modules/.bin/mocha --reporter min -w",
-    "eslint-watch": "./node_modules/.bin/esw --watch"
+    "mocha-watch": "mocha --reporter min -w",
+    "eslint-watch": "esw --watch"
   },
   "dependencies": {
     "foreverjs": "^1.1.241"
   },
   "devDependencies": {
-    "forever": "*",
     "chai": "^4.1.1",
     "eslint": "^4.4.1",
     "eslint-watch": "3.1.2",
@@ -39,5 +38,11 @@
     "proxyquire": "^1.8.0",
     "sinon": "^4.0.2",
     "sinon-chai": "^2.14.0"
+  },
+  "bugs": {
+    "url": "https://github.com/martinkr/lakka/issues"
+  },
+  "directories": {
+    "test": "test"
   }
 }

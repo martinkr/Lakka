@@ -1,4 +1,4 @@
-# lakka [![Build Status](https://travis-ci.org/martinkr/lakka.svg?branch=master)](https://travis-ci.org/martinkr/lakka)
+# lakka [![Build Status](https://travis-ci.org/martinkr/Lakka.svg?branch=master)](https://travis-ci.org/martinkr/lakka)
 lakka. An advanced client-side cache.
 
 # How to use this?
@@ -12,10 +12,7 @@ lakka. An advanced client-side cache.
 
 
 # Tech Stack
-- ECMAScript 2018 on ```nodejs v8.5.0```
-- ```blink-diff v^1.0.1```
-- ```fs-extra-plus v0.1.3```
-- ```puppeteer v0.11.0```
+- ECMAScript 2018 on ```nodejs v9.0.0``
 - 100% code coverage using ```mocha v3.5.2```, ```chai v4.1.2``` and```nyc v11.2.1``,
 
 ## Resources

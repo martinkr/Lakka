@@ -29,8 +29,8 @@ const validCacheControl = require("./../header/valid-cache-control.js");
 const validContentType = require("./../header/valid-content-type.js");
 const cache = require("./../facade/localstorage.js");
 const createKey = require("./../cache/create-key.js");
-const throwIfInvalid = require("./../utils/throw-invalid.js");
 const checkHeaderValue = require("./../header/utils/check-value.js");
+const getFromCache = require("./../cache/get-item.js");
 
 /**
  * Checks if the given URI is part of the include / exclude pattern or throws an Error.
@@ -59,23 +59,7 @@ const _checkPatterns = (uri) => {
 };
 
 /**
- * Curried function returning the item stored below "key" from "cache".
- * @curried
- * @sync
- * @param {Object} cache the cache to use
- * @return {Object|Error} the cached item or an Error if we should ignore this uri
- */
-const _getItemFromCache = (cache) =>
-	/** @param {String} key the key for the lookup @return {function} */
-	(key) => {
-		const item = cache.get(key);
-		// is there a fresh item?
-		throwIfInvalid(item && item.until >= Date.now());
-		return item;
-};
-
-/**
- *  * Handles all the caching steps to be done BEFORE sending a request:
+ * Handles all the caching steps to be done BEFORE sending a request:
  *
  * check the include / exclude pattern
  * check the cache-control Header
@@ -107,7 +91,7 @@ module.exports = (uri, options) => {
 		// check if the content-type header  let's us handle this request
 		checkHeaderValue(validContentType)(options)("Content-Type");
 		// check the cache for cached content which is still fresh
-		return _getItemFromCache(cache)(createKey(uri));
+		return getFromCache(cache)(createKey(uri));
 
 	} catch (err) {
 		throw new Error();

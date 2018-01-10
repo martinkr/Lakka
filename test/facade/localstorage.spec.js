@@ -47,6 +47,12 @@ describe(`The module "${thisModulePath}"`, () => {
 		done();
 	});
 
+	after((done) => {
+		spySet.reset();
+		spyGet.reset();
+		spyDel.reset();
+		done();
+	});
 
 
 	describe("should provide an unified API. It:", () => {

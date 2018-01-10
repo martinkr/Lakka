@@ -62,7 +62,7 @@ services:
             - node-modules
             - node-shell
         command:
-            "forever yarn run mocha-watch"
+            "yarn run mocha-watch"
 
 
 volumes:
