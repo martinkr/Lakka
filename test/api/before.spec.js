@@ -41,9 +41,18 @@ describe(`The module "${thisModulePath}"`, () => {
 		global.window.localStorage = {
 			_data: {},
 			getItem(key) {
-				return global.window.localStorage._data[key];
+				let item = global.window.localStorage._data[key];
+				// some kind of safety net...
+				/* istanbul ignore next */
+				if (typeof (item) === "string") {
+					item = JSON.parse(item);
+				}
+				return item;
 			},
 			setItem(key, value) {
+				if (typeof (value) !== "string") {
+					value = JSON.stringify(value);
+				}
 				return global.window.localStorage._data[key] = value;
 			},
 			removeItem(key) {
@@ -52,7 +61,7 @@ describe(`The module "${thisModulePath}"`, () => {
 		};
 
 		global.window.localStorage.setItem(thisCreateKey("string"), thisCreateItem("string", "value-HTML"));
-		global.window.localStorage.setItem(thisCreateKey("/matchMe.html"), thisCreateItem("string", "matchMe-HTML"));
+		global.window.localStorage.setItem(thisCreateKey("/matchMe.html"), thisCreateItem("/matchMe.html", "matchMe-HTML"));
 		// global.window.localStorage.setItem("/noMatch.html", "noMatch-HTML");
 	});
 

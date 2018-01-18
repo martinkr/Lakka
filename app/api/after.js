@@ -37,6 +37,34 @@ const throwIfInvalid = require("./../utils/throw-invalid.js");
 const getHeaderValue = require("./../header/utils/get-value.js");
 const checkHeaderValue = require("./../header/utils/check-value.js");
 const setToCache = require("./../cache/set-item.js");
+const patternMatch = require("./../pattern-match/main.js");
+
+/**
+ * Checks if the given URI is part of the include / exclude pattern or throws an Error.
+ * @param {String} uri the uri for the request
+ * @return {Boolean|Error} throws an Error if we should ignore this uri
+ */
+const _checkPatterns = (uri) => {
+
+	// get everything from the config
+	const _include = configuration.get("include");
+	const _exclude = configuration.get("exclude");
+
+	// the exclude-pattern takes precedent over the include-pattern
+	if (_exclude.length && patternMatch(uri, _exclude)) {
+		throw new Error();
+	}
+
+	// the include-pattern must be a match if there's an include pattern
+	// otherwise the include-pattern is not important
+	if (_include.length && patternMatch(uri, _include) === false) {
+		throw new Error();
+	}
+
+	// no pattern or no failures
+	return true;
+};
+
 
 /**
  * Handles all the caching steps to be done AFTER receiving the request's response
@@ -70,6 +98,8 @@ module.exports = (uri, responseText, statusCode, options) => {
 	const _statusCode = String(statusCode);
 
 	try {
+		// we need to check if the given URI is part of the include / exclude pattern or throw.
+		_checkPatterns(uri);
 		// check if the status code indicates a successful request
 		throwIfInvalid(validStatusCode(_statusCode));
 		// check if the cache control header let's us cache this request

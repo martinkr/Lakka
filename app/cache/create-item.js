@@ -45,14 +45,14 @@ module.exports = (uri, responseString, headers) => {
 	if (typeof (uri) !== "string" || typeof (responseString) !== "string" || (headers && headers instanceof Object && headers.constructor === Object ) === false ) {
 		throw new Error();
 	}
-
 	let _item = { "headers": {}};
 	try {
 		_item.key = createKey(uri);
+		_item.status = 200;
+		_item.statusText = "cache"
 		_item.responseText = responseString;
 		_item.until = calculateValidity( getHeaderValue(headers)("Cache-Control")(null), getHeaderValue(headers)("Expires")(null), defaultMiliseconds);
-		_item.headers["X-Status-Code"] = 200;
-		_item.headers["Status"] = "200 from cache";
+		_item.headers["Status"] = `${_item.status} ${_item.statusText}`;
 		_item.headers["Content-Type"] = getHeaderValue(headers)("Content-Type")("text/plain");
 		_item.headers["Cache-Control"] = getHeaderValue(headers)("Cache-Control")(null);
 		_item.headers["Expires"] = getHeaderValue(headers)("Expires")(null);

@@ -41,9 +41,18 @@ describe(`The module "${thisModulePath}"`, () => {
 		global.window.localStorage = {
 			_data: {},
 			getItem(key) {
-				return global.window.localStorage._data[key];
+				let item = global.window.localStorage._data[key];
+				// some kind of safety net...
+				/* istanbul ignore next */
+				if (typeof (item) === "string") {
+					item = JSON.parse(item);
+				}
+				return item;
 			},
 			setItem(key, value) {
+				if (typeof (value) !== "string") {
+					value = JSON.stringify(value);
+				}
 				return global.window.localStorage._data[key] = value;
 			},
 			removeItem(key) {
@@ -51,7 +60,9 @@ describe(`The module "${thisModulePath}"`, () => {
 			},
 		};
 
-		// global.window.localStorage.setItem(thisCreateKey("string"), thisCreateItem("string", "value-HTML"));
+		global.window.localStorage.setItem(thisCreateKey("string"), thisCreateItem("string", "value-HTML"));
+		global.window.localStorage.setItem(thisCreateKey("/matchMe.html"), thisCreateItem("/matchMe.html", "matchMe-HTML"));
+		// global.window.localStorage.setItem("/noMatch.html", "noMatch-HTML");
 
 	});
 
@@ -316,6 +327,95 @@ describe(`The module "${thisModulePath}"`, () => {
 
 	});
 
+
+
+	describe("should work with \"exclude\" & \"include\" patterns. It:", () => {
+
+		beforeEach(() => {
+			let _object = {
+				"include": [],
+				"exclude": [],
+				"minutes": 60
+			};
+			thisConfig.set(_object);
+		});
+
+		after(() => {
+			let _object = {
+				"include": [],
+				"exclude": [],
+				"minutes": 60
+			};
+			thisConfig.set(_object);
+		});
+
+		it("should not throw if no pattern is set", (() => {
+			try {
+				thisModule("string", "response", 200, {} );
+			} catch (err) {
+				throw new Error("Failed");
+			}
+			return true;
+		}));
+
+		it("should throw if the uri matches the \"exclude\" pattern", (() => {
+			thisConfig.set("exclude", "matchMe");
+			try {
+				thisModule("/matchMe.html", "response", 200, {} );
+			} catch (err) {
+				err.should.be.an("error");
+				return true;
+			}
+			throw new Error("Failed");
+		}));
+
+		it("should throw if the uri matches the \"exclude\" pattern and not the \"include\" pattern", (() => {
+			thisConfig.set("exclude", "matchMe");
+			thisConfig.set("include", "includeMe");
+			try {
+				thisModule("/matchMe.html", "response", 200, {} );
+			} catch (err) {
+				err.should.be.an("error");
+				return true;
+			}
+			throw new Error("Failed");
+		}));
+
+		it("should throw if the uri matches the \"exclude\" pattern and the \"include\" pattern (\"exclude\" takes precedence)", (() => {
+			thisConfig.set("exclude", "matchMe");
+			thisConfig.set("include", "matchMe");
+			try {
+				thisModule("/matchMe.html", "response", 200, {} );
+			} catch (err) {
+				err.should.be.an("error");
+				return true;
+			}
+			throw new Error("Failed");
+		}));
+
+
+		it("should not throw if the uri matches the \"include\" pattern", (() => {
+			thisConfig.set("include", "matchMe");
+			try {
+				thisModule("/matchMe.html", "response", 200, {} );
+			} catch (err) {
+				throw new Error("Failed");
+			}
+			return true;
+		}));
+
+		it("should throw if the uri does matches the \"include\" pattern", (() => {
+			thisConfig.set("include", "matchMe", "response", 200, {} );
+			try {
+				thisModule("/noMatch.html");
+			} catch (err) {
+				err.should.be.an("error");
+				return true;
+			}
+			throw new Error("Failed");
+		}));
+
+	});
 
 	describe("should consider the status code. It:", () => {
 
@@ -628,16 +728,16 @@ describe(`The module "${thisModulePath}"`, () => {
 			global.window.localStorage._data = {};
 		});
 
-
-		it("should write to localStorage.", (() => {
+		it("should write to localStorage and be ok", (() => {
 			global.window.localStorage._data = {};
 			thisModule("string", "response", 200, _options);
-			global.window.localStorage.getItem("string").should.be.an("object");
+			console.log(global.window.localStorage._data)
+			global.window.localStorage.getItem("string").should.be.ok;
 		}));
 
-		it("should return the cacheItem", (() => {
+		it("should return the cacheItem and be ok", (() => {
 			global.window.localStorage._data = {};
-			thisModule("string", "response", 200, _options).should.be.an("object");
+			thisModule("string", "response", 200, _options).should.be.ok;
 		}));
 
 

@@ -76,7 +76,6 @@ const _checkPatterns = (uri) => {
  * @return {Object|Error} the cached item or an Error if this url does not have an item which is stil fresh
  */
 module.exports = (uri, options) => {
-
 	// we're only accepting strings as the first and an optional object as second parameter
 	if (typeof (uri) !== "string" || (options && options instanceof Object && options.constructor === Object ) === false ) {
 		throw new Error();

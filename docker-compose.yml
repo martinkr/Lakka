@@ -17,13 +17,16 @@ services:
             # get node_modules from shared volume
             - "shared-node-modules:/home/node/node_modules/"
             - "./app:/home/node/app"
+            - "./dist:/home/node/dist"
             - "./test:/home/node/test"
             - "./coverage:/home/node/coverage"
             - "./package.json:/home/node/package.json"
             - "./.eslintrc.js:/home/node/.eslintrc.js:ro"
             - "./.eslintignore:/home/node/.eslintignore:ro"
             - "./.yarnrc:/home/node/.yarnrc"
+            - "./.babelrc:/home/node/.babelrc"
             - "./.jsdoc.json:/home/node/.jsdoc.json"
+            - "./webpack.config.js:/home/node/webpack.config.js"
             - "./yarn.lock:/home/node/yarn.lock"
             - "./build.sh:/home/node/build.sh"
         depends_on:

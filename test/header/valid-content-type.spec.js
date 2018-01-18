@@ -29,7 +29,9 @@ const validTyes = [
 	"application/json",
 	"text/x-json",
 	"text/plain",
-	"text/html"
+	"charset=utf-8; text/plain",
+	"text/html",
+	"text/html; charset=utf-8"
 ];
 
 // this is just an arbitrary list

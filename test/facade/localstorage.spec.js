@@ -22,22 +22,31 @@ let spyDel;
 describe(`The module "${thisModulePath}"`, () => {
 
 	afterEach((done) => {
+		global.window.localStorage._data = {};
 		spySet.restore();
 		spyGet.restore();
 		spyDel.restore();
 		done();
 	});
 
-	beforeEach((done) => {
+
+	before((done) => {
 		if (!global.window) {
 			global.window = {};
 		}
+
+		done();
+	});
+	beforeEach((done) => {
 		if (!global.window.localStorage) {
 			global.window.localStorage = {
-				getItem() {
-					return "stub";
+				_data: {},
+				getItem(key) {
+					return global.window.localStorage._data[key];
 				},
-				setItem() {},
+				setItem(key, value) {
+					return global.window.localStorage._data[key] = value;
+				},
 				removeItem() {},
 			};
 		}
@@ -95,6 +104,87 @@ describe(`The module "${thisModulePath}"`, () => {
 			return true;
 		}));
 
+		it("should save Strings only (stringify an Object)", ( () => {
+			try {
+				thisModule.set("foo", {"bar": "baz"});
+			} catch (err) {
+				console.error("error: ", err)
+			}
+			spySet.should.have.been.calledWith("foo", JSON.stringify({"bar": "baz"}));
+			return true;
+		}));
+
+		it("should save Strings only (stringify an Array)", ( () => {
+			try {
+				thisModule.set("foo", ["bar", "baz"]);
+			} catch (err) {
+				console.error("error: ", err)
+			}
+			spySet.should.have.been.calledWith("foo", JSON.stringify( ["bar", "baz"] ));
+			return true;
+		}));
+
+		it("should save Strings only (stringify a Number)", ( () => {
+			try {
+				thisModule.set("foo", 10);
+			} catch (err) {
+				console.error("error: ", err)
+			}
+			spySet.should.have.been.calledWith("foo", JSON.stringify( 10));
+			return true;
+		}));
+
+		it("should save Strings only (stringify a Boolean true)", ( () => {
+			try {
+				thisModule.set("foo", true);
+			} catch (err) {
+				console.error("error: ", err)
+			}
+			spySet.should.have.been.calledWith("foo", JSON.stringify( true ));
+			return true;
+		}));
+
+		it("should throw if the value evaluates to false (false)", ( () => {
+			try {
+				thisModule.set("foo", false);
+			} catch (err) {
+				err.should.be.an("error");
+				return true;
+			}
+			throw new Error("Failed");
+		}));
+
+		it("should throw if the value evaluates to false (null)", ( () => {
+			try {
+				thisModule.set("foo", null);
+			} catch (err) {
+				err.should.be.an("error");
+				return true;
+			}
+			throw new Error("Failed");
+		}));
+
+		it("should throw if the value evaluates to false (0)", ( () => {
+			try {
+				thisModule.set("foo", 0);
+			} catch (err) {
+				err.should.be.an("error");
+				return true;
+			}
+			throw new Error("Failed");
+		}));
+
+		it("should not throw if the value is an empty string (\"\")", ( () => {
+			try {
+				thisModule.set("foo", "");
+			} catch (err) {
+				console.error("error: ", err)
+			}
+			spySet.should.have.been.calledWith("foo", "");
+			return true;
+		}));
+
+
 		it("should throw if \"window.localStorage.setItem\" is not available", ( () => {
 			spySet.restore();
 			window.localStorage.setItem = undefined;
@@ -126,6 +216,8 @@ describe(`The module "${thisModulePath}"`, () => {
 			}
 			throw new Error("Failed");
 		}));
+
+
 
 	});
 
@@ -164,19 +256,23 @@ describe(`The module "${thisModulePath}"`, () => {
 			throw new Error("Failed");
 		}));
 
-		it("should return the value from window.localStorage", ( () => {
-			window.localStorage.getItem = () => {
-				return "baz";
-			};
+		it("should return the value from window.localStorage", (() => {
+			window.localStorage.setItem("foo", JSON.stringify("baz"));
 			let _result = thisModule.get("foo");
-			_result.should.equal("baz");
+			_result.should.be.ok;
+			return true;
+		}));
+
+
+		it("should always return an object", ( () => {
+			window.localStorage.setItem("foo", JSON.stringify({"bar": "baz"}));
+			let _result = thisModule.get("foo");
+			_result.should.be.an("object");
 			return true;
 		}));
 
 		it("should return the value from window.localStorage - \"null\" if there's no value for the key", ( () => {
-			window.localStorage.getItem = () => {
-				return null;
-			};
+			window.localStorage.setItem("foo", JSON.stringify(null));
 			let _result = thisModule.get("foo");
 			(_result === null).should.be.true;
 			return true;

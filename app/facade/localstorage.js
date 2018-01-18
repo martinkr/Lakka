@@ -28,26 +28,39 @@
  * @return {Any} the localStorages response
  */
 const _proxy = (action, key, value) => {
+	let _item;
 	if (!action || !key) {
-		throw new Error("Missing arguments");
+		throw new Error();
 	}
 	try {
 		switch (action) {
 
 			case "set":
-				if (!value) {
-					throw new Error("Missing arguments");
+
+				if (!value && typeof(value) !== "string") {
+					throw new Error();
+				}
+
+				if (typeof (value) !== "string") {
+					value = JSON.stringify(value);
 				}
 				return window.localStorage.setItem(key, value);
+				// return window.localStorage.setItem(key, JSON.stringify(value));
 
 			case "get":
-				return window.localStorage.getItem(key);
+				_item = window.localStorage.getItem(key);
+				// some kind of safety net...
+				/* istanbul ignore next */
+				if (typeof (_item) === "string") {
+					_item = JSON.parse(_item);
+				}
+				return _item;
 
 			case "del":
 				return window.localStorage.removeItem(key);
 
 			case "has":
-				return  Boolean(window.localStorage.getItem(key));
+				return Boolean(window.localStorage.getItem(key));
 
 		}
 	} catch (err) {

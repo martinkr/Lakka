@@ -19,5 +19,23 @@
  * @param {String} element the content of the Content-Type header
  * @return {Boolean} true if cachable
  */
-module.exports = (element) => [ "application/json", "text/x-json", "text/plain", "text/html" ].includes(element);
+const validPattern = [
+	new RegExp("application/json"),
+	new RegExp("text/x-json"),
+	new RegExp("text/plain"),
+	new RegExp("text/html")
+];
+
+module.exports = (content) => {
+	if (typeof (content) !== "string" || !content) {
+		return false;
+	}
+	return validPattern.map((regexp) => {
+		return regexp.test(content);
+	})
+	.some((match) => {
+		return match === true;
+	});
+
+};
 

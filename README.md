@@ -1,4 +1,4 @@
-# lakka [![Build Status](https://travis-ci.org/martinkr/Lakka.svg?branch=master)](https://travis-ci.org/martinkr/lakka)
+# lakka [![Build Status](https://travis-ci.org/martinkr/Lakka.svg?branch=master)](https://travis-ci.org/martinkr/Lakka)
 lakka. An advanced client-side cache.
 
 # How to use this?
@@ -10,6 +10,7 @@ lakka. An advanced client-side cache.
 
 # Example
 
+python -m SimpleHTTPServer 8080
 
 # Tech Stack
 - ECMAScript 2018 on ```nodejs v9.0.0``

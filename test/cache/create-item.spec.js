@@ -106,6 +106,15 @@ describe(`The module "${thisModulePath}"`, () => {
 			thisModule(uri, responseString, headers)["key"].should.equal(key);
 		});
 
+		it("should create an item wich has a valid \"status\"", () => {
+			console.log(thisModule(uri, responseString, headers))
+			thisModule(uri, responseString, headers)["status"].should.equal(200);
+		});
+
+		it("should create an item wich has a valid \"statusText\"", () => {
+			thisModule(uri, responseString, headers)["statusText"].should.equal("cache");
+		});
+
 		it("should create an item wich has a valid \"responseText\"", () => {
 			thisModule(uri, responseString, headers)["responseText"].should.equal(responseString);
 		});
@@ -122,12 +131,8 @@ describe(`The module "${thisModulePath}"`, () => {
 			thisModule(uri, responseString, headers)["headers"]["Content-Type"].should.equal(headers["Content-Type"]);
 		});
 
-		it("should create an item wich has a valid \"headers.X-Status-Code\": \"200\"", () => {
-			thisModule(uri, responseString, headers)["headers"]["X-Status-Code"].should.equal(200);
-		});
-
-		it("should create an item wich has a valid \"headers.Status\": \"200 from cache\"", () => {
-			thisModule(uri, responseString, headers)["headers"]["Status"].should.equal("200 from cache");
+		it("should create an item wich has a valid \"headers.Status\": \"200 cache\"", () => {
+			thisModule(uri, responseString, headers)["headers"]["Status"].should.equal("200 cache");
 		});
 
 		it("should create an item wich has a valid \"headers.Expires\" from \"headers.Expires\" ", () => {
