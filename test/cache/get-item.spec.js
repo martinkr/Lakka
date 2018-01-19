@@ -83,7 +83,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			thisModule(facade)("key").foo.should.equal("fresh");
 		});
 
-		it("should throw if there's a stale item for this key", () => {
+		it("should throw if there's no item for this key", () => {
 			delete facade._data["key"];
 
 			try {
@@ -109,6 +109,22 @@ describe(`The module "${thisModulePath}"`, () => {
 			throw new Error("Failed");
 		});
 
+		it("should remote the item from the cache if the item is stale", () => {
+			facade._data["key"] = {
+				"foo": "fresh",
+				"until": Date.now() - 1000
+			};
+			try {
+				thisModule(facade)("key");
+			} catch (err) {
+				(global.window.localStorage._data["key"] === undefined).should.be.true;
+				return true;
+			}
+			throw new Error("Failed");
+		});
+
 	});
 
 });
+
+

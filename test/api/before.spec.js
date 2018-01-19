@@ -291,7 +291,7 @@ describe(`The module "${thisModulePath}"`, () => {
 		}));
 
 
-		it("should not throw if the uri matches the \"include\" pattern", (() => {
+		it("should not throw if the uri matches the \"include\" pattern if one is set", (() => {
 			thisConfig.set("include", "matchMe");
 			try {
 				thisModule("/matchMe.html");
@@ -301,7 +301,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			return true;
 		}));
 
-		it("should throw if the uri does matches the \"include\" pattern", (() => {
+		it("should throw if the uri does not matches the \"include\" pattern if one is set", (() => {
 			thisConfig.set("include", "matchMe");
 			try {
 				thisModule("/noMatch.html");
@@ -621,6 +621,17 @@ describe(`The module "${thisModulePath}"`, () => {
 		it("should return the item for this uri if it's fresh", (() => {
 			global.window.localStorage.setItem(thisCreateKey("string"), thisCreateItem("string", "value-HTML"));
 			thisModule("string").should.be.an("object");
+		}));
+
+		it("should purge the cache from stale items", (() => {
+			global.window.localStorage.setItem(thisCreateKey("string"), thisCreateItem("string", "value-HTML", { "Expires": (new Date(new Date(new Date().getTime() - (1000 * 60 * 60)).getTime())) }));
+			try {
+				thisModule("string");
+			} catch (err) {
+				(global.window.localStorage.getItem(thisCreateKey("string")) === undefined).should.be.true;
+				return true;
+			}
+			throw new Error("Failed");
 		}));
 
 		it("should throw if the item for this uri is stale", (() => {

@@ -12,7 +12,7 @@
  * @author Martin Krause <github@mkrause.info>
  */
 
-const throwIfInvalid = require("./../utils/throw-invalid.js");
+const checkFreshness = require("./../cache/check-freshness.js");
 
 /**
  * Curried function returning the item stored below "key" from "cache".
@@ -27,7 +27,12 @@ module.exports = (cache) =>
 	(key) => {
 		const item = cache.get(key);
 		// is there a fresh item?
-		throwIfInvalid(item && item.until >= Date.now());
+		if (!checkFreshness(item)) {
+			// purge cache
+			cache.del(key)
+			// throw;
+			throw new Error();
+		}
+		console.log("return",typeof(item))
 		return item;
 };
-

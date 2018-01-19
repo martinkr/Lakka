@@ -394,7 +394,7 @@ describe(`The module "${thisModulePath}"`, () => {
 		}));
 
 
-		it("should not throw if the uri matches the \"include\" pattern", (() => {
+		it("should not throw if the uri matches the \"include\" pattern if one is set", (() => {
 			thisConfig.set("include", "matchMe");
 			try {
 				thisModule("/matchMe.html", "response", 200, {} );
@@ -404,10 +404,10 @@ describe(`The module "${thisModulePath}"`, () => {
 			return true;
 		}));
 
-		it("should throw if the uri does matches the \"include\" pattern", (() => {
-			thisConfig.set("include", "matchMe", "response", 200, {} );
+		it("should throw if the uri does not matches the \"include\" pattern if one is set", (() => {
+			thisConfig.set("include", "matchMe");
 			try {
-				thisModule("/noMatch.html");
+				thisModule("/noMatch.html", "response", 200, {} );
 			} catch (err) {
 				err.should.be.an("error");
 				return true;

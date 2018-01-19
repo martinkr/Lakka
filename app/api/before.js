@@ -87,7 +87,7 @@ module.exports = (uri, options) => {
 		checkHeaderValue(validCacheControl)(options)("Cache-Control");
 		// check if the accept header let's us handle this request
 		checkHeaderValue(validContentType)(options)("Accept");
-		// check if the content-type header  let's us handle this request
+		// check if the content-type header let's us handle this request
 		checkHeaderValue(validContentType)(options)("Content-Type");
 		// check the cache for cached content which is still fresh
 		return getFromCache(cache)(createKey(uri));
