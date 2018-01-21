@@ -9,10 +9,18 @@
  * @description
  * Defines the publicly exposed API
  * - ignore:
- * 		Add an ignore pattern to the existing / default configuraiton
+ * 		Adds an ignore pattern (a string / RegEx) to the existing / default configuration
  * 		urls matching this pattern will be ignored by the lakka cache and passed throught
- * - configuraiton:
- * 		Add a complete configuration object with "ignore", "exclude", "minutes"
+ * - recognize:
+ * 		Adds an include pattern (a string / RegEx) to the existing / default configuration
+ * 		urls matching this pattern will be recognized by the lakka cache and passed throught
+ * 		ig this is empty, all URIs will be recognized
+ * - time:
+ * 		Sets the minutes (Number) we should cache items for. Defaut value is 60 minutes.
+ * 		Will be overwritten by the "max-age" - value of the Cache-Control Header or the Expires Header
+ * 		of the response.
+ * - configuration:
+ * 		Adds a complete configuration object with "ignore", "exclude", "minutes"
  * - after:
  * 		Call this before the actual request. Checks for and returns a fresh cache item or an error.
  * - before:
@@ -26,13 +34,25 @@
 
 const after = require("./../api/after.js");
 const before = require("./../api/before.js");
+const cacheFacade = require("./../facade/localstorage.js");
 const configuration = require("./../configuration/main.js");
 
 // API
 module.exports = {
 
 	/**
-	 * TODO: add a second flag for add/remove
+	 * Sets the minutes (Number) we should cache items for. Defaut value is 60 minutes.
+	 * Will be overwritten by the "max-age" - value of the Cache-Control Header or the Expires Header
+	 * of the response.
+	 * @sync
+	 * @public
+	 * @memberof api/time
+	 * @param {Number} value the default caching time
+	 * @return {Any} the configuration value
+	 */
+	"time": (value) => configuration.set("minutes", value),
+
+	/**
 	 * Dynamically add an "exclude" pattern to the lakka cache.
 	 * Any matches for this pattern will be ignored by the lakka cache.
 	 * @sync
@@ -44,16 +64,47 @@ module.exports = {
 	"ignore": (pattern) => configuration.set("exclude", pattern),
 
 	/**
+	 * Dynamically add an "include" pattern to the lakka cache.
+	 * Any matches for this pattern will be ignored by the lakka cache.
+	 * @sync
+	 * @public
+	 * @memberof api/recognize
+	 * @param {String} pattern the pattern or regexp to check the uri against. Any matches will be ignored by the lakka cache.
+	 * @return {Any} the configuration value
+	 */
+	"recognize": (pattern) => configuration.set("include", pattern),
+
+	/**
 	 * Dynamically merge a configuration object into the current / default configuraiton object.
 	 * "include"/"exclude" will be merged, "minutes" will be replaced
 	 * @sync
 	 * @public
-	 * @memberof api/ignore
-	 * @param {String} pattern the pattern or regexp to check the uri against.
-	 * Any matches will be ignored by the lakka cache.
+	 * @memberof api/configuration
+	 * @param {Object} obj a configuration object
 	 * @return {Any} the configuration value
 	 */
 	"configuration": (obj) => configuration.set(obj),
+
+	/**
+	 * Force clear an item from the cache.
+	 * @sync
+	 * @public
+	 * @memberof api/remove
+	 * @param {String} uri the uri to remove
+	 * @return {Any} the configuration value
+	 */
+	"remove": (uri) => cacheFacade.del(uri),
+
+
+	/**
+	 * Dynamically merge a configuration object into the current / default configuraiton object.
+	 * "include"/"exclude" will be merged, "minutes" will be replaced
+	 * @sync
+	 * @public
+	 * @memberof api/configuration
+	 * @return {Any} the configuration value
+	 */
+	"flush": () => cacheFacade.flush(),
 
 
 	/**

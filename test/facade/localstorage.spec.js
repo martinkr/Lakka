@@ -17,6 +17,7 @@ const thisModule = require("./../../app/" + thisModulePath);
 let spySet;
 let spyGet;
 let spyDel;
+let spyFlush;
 
 
 describe(`The module "${thisModulePath}"`, () => {
@@ -26,6 +27,7 @@ describe(`The module "${thisModulePath}"`, () => {
 		spySet.restore();
 		spyGet.restore();
 		spyDel.restore();
+		spyFlush.restore();
 		done();
 	});
 
@@ -48,11 +50,13 @@ describe(`The module "${thisModulePath}"`, () => {
 					return global.window.localStorage._data[key] = value;
 				},
 				removeItem() {},
+				clear() {},
 			};
 		}
 		spySet = sinon.spy(global.window.localStorage, "setItem");
 		spyGet = sinon.spy(global.window.localStorage, "getItem");
 		spyDel = sinon.spy(global.window.localStorage, "removeItem");
+		spyFlush = sinon.spy(global.window.localStorage, "clear");
 		done();
 	});
 
@@ -60,6 +64,7 @@ describe(`The module "${thisModulePath}"`, () => {
 		spySet.reset();
 		spyGet.reset();
 		spyDel.reset();
+		spyFlush.reset();
 		done();
 	});
 
@@ -316,6 +321,19 @@ describe(`The module "${thisModulePath}"`, () => {
 			throw new Error("Failed");
 		}));
 
+	});
+
+	describe("should have an API \"flush\". It:", () => {
+
+		it("should call \"window.localStorage.clear\"", (() => {
+			try {
+				thisModule.flush();
+			} catch (err) {
+				console.error("error: ", err)
+			}
+			spyFlush.should.have.been.called;
+			return true;
+		}));
 	});
 
 	describe("should have an API \"has\". It:", () => {

@@ -56,6 +56,9 @@ const _proxy = (action, key, value) => {
 				}
 				return _item;
 
+			case "flush":
+				return window.localStorage.clear();
+
 			case "del":
 				return window.localStorage.removeItem(key);
 
@@ -103,6 +106,15 @@ module.exports = {
 	 * @return {Any} the localStorages response
 	 */
 	"del":(key) => _proxy("del", key),
+
+	/**
+	 * Flushes the complete cache
+	 * @snyc
+	 * @private
+	 * @memberof facade/localstorage
+	 * @return {Any} the localStorages response
+	 */
+	"flush": () => _proxy("flush", "*"),
 
 	/**
 	 * Returns a boolean value indicating if there's an entry for this key

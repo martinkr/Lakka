@@ -16,9 +16,12 @@ let thisModule;
 let stubConfiguration;
 let spyConfiguration;
 let stubAfter;
+let stubCache;
 let spyAfter;
 let stubBefore;
 let spyBefore;
+let spyCacheFlush;
+let spyCacheDel;
 
 describe(`The module "${thisModulePath}"`, () => {
 
@@ -28,17 +31,24 @@ describe(`The module "${thisModulePath}"`, () => {
 		stubConfiguration = { "set": () => true };
 		spyConfiguration = sinon.spy(stubConfiguration, "set");
 
+		stubCache = { "flush": () => true, "del": () => true };
+		spyCacheFlush =  sinon.spy(stubCache, "flush");
+		spyCacheDel =  sinon.spy(stubCache, "del");
+
+
 		stubAfter = sinon.spy();
 		spyAfter = stubAfter;
 
 		stubBefore = sinon.spy();
 		spyBefore = stubBefore;
 
+
 		thisModule = proxyquire("./../../app/" + thisModulePath, {
 			// replace dependencies mit spied on stubs
 			"./../configuration/main.js": stubConfiguration,
 			"./../api/after.js": stubAfter,
-			"./../api/before.js": stubBefore
+			"./../api/before.js": stubBefore,
+			"./../facade/localstorage.js": stubCache
 		});
 
 		done();
@@ -53,6 +63,7 @@ describe(`The module "${thisModulePath}"`, () => {
 		stubAfter.reset();
 		stubBefore.reset();
 		spyConfiguration.reset();
+		spyConfiguration.reset();
 		done();
 	});
 
@@ -66,8 +77,20 @@ describe(`The module "${thisModulePath}"`, () => {
 			thisModule.configuration.should.be.a("function");
 		});
 
+		it("should export a sync function \"time\"", () => {
+			thisModule.time.should.be.a("function");
+		});
+
+		it("should export a sync function \"recognize\"", () => {
+			thisModule.recognize.should.be.a("function");
+		});
+
 		it("should export a sync function \"ignore\"", () => {
 			thisModule.ignore.should.be.a("function");
+		});
+
+		it("should export a sync function \"flush\"", () => {
+			thisModule.flush.should.be.a("function");
 		});
 
 		it("should export a sync function \"after\"", () => {
@@ -76,6 +99,24 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should export a sync function \"before\"", () => {
 			thisModule.before.should.be.a("function");
+		});
+
+	});
+
+	describe("should have a working API \"time\". It:", () => {
+
+		it("should call the \".set\"-function on the \"configuration\"-module with the correct - passed through - parameters", () => {
+			thisModule.time(10)
+			spyConfiguration.should.have.been.calledWith("minutes", 10);
+		});
+
+	});
+
+	describe("should have a working API \"recognize\". It:", () => {
+
+		it("should call the \".set\"-function on the \"configuration\"-module with the correct - passed through - parameters", () => {
+			thisModule.recognize("testpattern")
+			spyConfiguration.should.have.been.calledWith("include", "testpattern");
 		});
 
 	});
@@ -94,6 +135,24 @@ describe(`The module "${thisModulePath}"`, () => {
 		it("should call the \".set\"-function on the \"configuration\"-module with the correct - passed through - parameters", () => {
 			thisModule.configuration({})
 			spyConfiguration.should.have.been.calledWith({});
+		});
+
+	});
+
+	describe("should have a working API \"remove\". It:", () => {
+
+		it("should call the \".del\"-function on the \"cache\"-module with the correct - passed through - parameters", () => {
+			thisModule.remove("string")
+			spyCacheDel.should.have.been.calledWith("string");
+		});
+
+	});
+
+	describe("should have a working API \"flush\". It:", () => {
+
+		it("should call the \".flush\"-function on the \"cache\"-module", () => {
+			thisModule.flush()
+			spyCacheFlush.should.have.been.called;
 		});
 
 	});
