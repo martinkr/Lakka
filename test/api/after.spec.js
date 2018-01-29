@@ -32,34 +32,7 @@ const thisCreateItem = require("./../../app/cache/create-item.js");
 describe(`The module "${thisModulePath}"`, () => {
 
 	before(() => {
-
-		if (!global.window) {
-			global.window = {};
-		}
-		global.window._localStorage = global.window.localStorage;
-
-		global.window.localStorage = {
-			_data: {},
-			getItem(key) {
-				let item = global.window.localStorage._data[key];
-				// some kind of safety net...
-				/* istanbul ignore next */
-				if (typeof (item) === "string") {
-					item = JSON.parse(item);
-				}
-				return item;
-			},
-			setItem(key, value) {
-				if (typeof (value) !== "string") {
-					value = JSON.stringify(value);
-				}
-				return global.window.localStorage._data[key] = value;
-			},
-			removeItem(key) {
-				delete global.window.localStorage._data[key];
-			},
-		};
-
+		global.window.localStorage.clear();
 		global.window.localStorage.setItem(thisCreateKey("string"), thisCreateItem("string", "value-HTML"));
 		global.window.localStorage.setItem(thisCreateKey("/matchMe.html"), thisCreateItem("/matchMe.html", "matchMe-HTML"));
 		// global.window.localStorage.setItem("/noMatch.html", "noMatch-HTML");
@@ -71,8 +44,6 @@ describe(`The module "${thisModulePath}"`, () => {
 	})
 
 	after(() => {
-		global.window.localStorage = global.window._localStorage;
-		delete global.window._localStorage;
 	})
 
 
@@ -721,22 +692,22 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		beforeEach(() => {
 			_options = {};
-			global.window.localStorage._data = {};
+			global.window.localStorage.clear();
 		});
 
 		after(() => {
-			global.window.localStorage._data = {};
+			global.window.localStorage.clear();
 		});
 
 		it("should write to localStorage and be ok", (() => {
-			global.window.localStorage._data = {};
+			global.window.localStorage.clear();
 			thisModule("string", "response", 200, _options);
 			console.log(global.window.localStorage._data)
-			global.window.localStorage.getItem("string").should.be.ok;
+			JSON.parse(global.window.localStorage.getItem("lakka"))["string"].should.be.ok;
 		}));
 
 		it("should return the cacheItem and be ok", (() => {
-			global.window.localStorage._data = {};
+			global.window.localStorage.clear();
 			thisModule("string", "response", 200, _options).should.be.ok;
 		}));
 

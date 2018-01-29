@@ -1,2 +1,9 @@
 
-  { "presets": ["env"]}
+  {
+    "presets": ["env"],
+    "env": {
+      "production": {
+        "presets": ["minify"]
+      }
+    }
+  }

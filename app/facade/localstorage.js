@@ -29,42 +29,59 @@
  */
 const _proxy = (action, key, value) => {
 	let _item;
+	let _objLakka;
 	if (!action || !key) {
 		throw new Error();
 	}
+
 	try {
 		switch (action) {
 
 			case "set":
+				try {
+					_objLakka = JSON.parse(window.localStorage.getItem("lakka"));
+				} catch (err) {
+					// safety net
+				}
 
-				if (!value && typeof(value) !== "string") {
+				if (!_objLakka) {
+					_objLakka = {};
+				}
+
+				if ((!value && typeof (value) !== "string") && value !== null) {
 					throw new Error();
 				}
 
-				if (typeof (value) !== "string") {
-					value = JSON.stringify(value);
+				// if (typeof (value) !== "string") {
+				// 	value = JSON.stringify(value);
+				// }
+
+				// API: del()
+				if (value === null) {
+					delete _objLakka[key];
+				} else {
+					_objLakka[key] = value;
 				}
-				return window.localStorage.setItem(key, value);
-				// return window.localStorage.setItem(key, JSON.stringify(value));
+
+				window.localStorage.setItem("lakka", JSON.stringify(_objLakka));
+				return true;
+
 
 			case "get":
-				_item = window.localStorage.getItem(key);
-				// some kind of safety net...
-				/* istanbul ignore next */
-				if (typeof (_item) === "string") {
-					_item = JSON.parse(_item);
+				try {
+					_objLakka = JSON.parse(window.localStorage.getItem("lakka"));
+				} catch (err) {
+					_objLakka = {}
+					return null;
 				}
+				_item = _objLakka[key] || null;
 				return _item;
 
-			case "flush":
-				return window.localStorage.clear();
-
 			case "del":
-				return window.localStorage.removeItem(key);
+				return _proxy("set", key, null);
 
-			case "has":
-				return Boolean(window.localStorage.getItem(key));
-
+			case "flush":
+				return window.localStorage.setItem("lakka", JSON.stringify({}));
 		}
 	} catch (err) {
 		throw new Error(err);
@@ -114,15 +131,6 @@ module.exports = {
 	 * @memberof facade/localstorage
 	 * @return {Any} the localStorages response
 	 */
-	"flush": () => _proxy("flush", "*"),
+	"flush": () => _proxy("flush", "*")
 
-	/**
-	 * Returns a boolean value indicating if there's an entry for this key
-	 * @snyc
-	 * @api
-	 * @memberof facade/localstorage
-	 * @param {String} key the key for the localStorage item to check
-	 * @return {Boolean}
-	 */
-	"has":(key) => _proxy("has", key),
 };

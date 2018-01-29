@@ -22,9 +22,9 @@
  * - configuration:
  * 		Adds a complete configuration object with "ignore", "exclude", "minutes"
  * - after:
- * 		Call this before the actual request. Checks for and returns a fresh cache item or an error.
+ * 		Call this after the actual request. Checks the response and store it at the cache. Returns the cache item or an error.
  * - before:
- * 		Call this after the actual request. Checks the response and store it at the cache. Retruns the cache item or an error.
+ * 		Call this before the actual request. Checks for and returns a fresh cache item or an error.
  *
  * @copyright 2017 Martin Krause <github@mkrause.info> (http://martinkr.github.io)
  * @license MIT license: https://opensource.org/licenses/MIT
@@ -58,7 +58,7 @@ module.exports = {
 	 * @sync
 	 * @public
 	 * @memberof api/ignore
-	 * @param {String} pattern the pattern or regexp to check the uri against. Any matches will be ignored by the lakka cache.
+	 * @param {String|Regex} pattern the pattern or regexp to check the uri against. Any matches will be ignored by the lakka cache.
 	 * @return {Any} the configuration value
 	 */
 	"ignore": (pattern) => configuration.set("exclude", pattern),
@@ -69,7 +69,7 @@ module.exports = {
 	 * @sync
 	 * @public
 	 * @memberof api/recognize
-	 * @param {String} pattern the pattern or regexp to check the uri against. Any matches will be ignored by the lakka cache.
+	 * @param {String|Regex} pattern the pattern or regexp to check the uri against. Any matches will be recognized and handled by the lakka cache.
 	 * @return {Any} the configuration value
 	 */
 	"recognize": (pattern) => configuration.set("include", pattern),
@@ -97,8 +97,7 @@ module.exports = {
 
 
 	/**
-	 * Dynamically merge a configuration object into the current / default configuraiton object.
-	 * "include"/"exclude" will be merged, "minutes" will be replaced
+	 * Flush the lakka cache. Remove all items
 	 * @sync
 	 * @public
 	 * @memberof api/configuration

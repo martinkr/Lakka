@@ -33,35 +33,12 @@ describe(`The module "${thisModulePath}"`, () => {
 
 	before(() => {
 
-		if (!global.window) {
-			global.window = {};
-		}
-		global.window._localStorage = global.window.localStorage;
-
-		global.window.localStorage = {
-			_data: {},
-			getItem(key) {
-				let item = global.window.localStorage._data[key];
-				// some kind of safety net...
-				/* istanbul ignore next */
-				if (typeof (item) === "string") {
-					item = JSON.parse(item);
-				}
-				return item;
-			},
-			setItem(key, value) {
-				if (typeof (value) !== "string") {
-					value = JSON.stringify(value);
-				}
-				return global.window.localStorage._data[key] = value;
-			},
-			removeItem(key) {
-				delete global.window.localStorage._data[key];
-			},
-		};
-
-		global.window.localStorage.setItem(thisCreateKey("string"), thisCreateItem("string", "value-HTML"));
-		global.window.localStorage.setItem(thisCreateKey("/matchMe.html"), thisCreateItem("/matchMe.html", "matchMe-HTML"));
+		var _key1 = thisCreateKey("string");
+		var _key2 = thisCreateKey("/matchMe.html");
+		var _obj = {  };
+		_obj[_key1] = thisCreateItem("string", "value-HTML");
+		_obj[_key2] = thisCreateItem("/matchMe.html", "matchMe-HTML");
+		global.window.localStorage.setItem("lakka", JSON.stringify(_obj));
 		// global.window.localStorage.setItem("/noMatch.html", "noMatch-HTML");
 	});
 
@@ -70,8 +47,7 @@ describe(`The module "${thisModulePath}"`, () => {
 	})
 
 	after(() => {
-		global.window.localStorage = global.window._localStorage;
-		delete global.window._localStorage;
+		global.window.localStorage.clear();
 	})
 
 
@@ -296,6 +272,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			try {
 				thisModule("/matchMe.html");
 			} catch (err) {
+				console.log("err", err)
 				throw new Error("Failed");
 			}
 			return true;
@@ -599,15 +576,15 @@ describe(`The module "${thisModulePath}"`, () => {
 
 
 		beforeEach(() => {
-			global.window.localStorage._data = {};
+			global.window.localStorage.clear();
 		});
 
 		after(() => {
-			global.window.localStorage._data = {};
+			global.window.localStorage.clear();
 		});
 
 		it("should throw if there is no item for this uri", (() => {
-			global.window.localStorage.removeItem(thisCreateKey("string"), "value");
+			global.window.localStorage.setItem("lakka", JSON.stringify({ "string": "value" }));
 			// global.window.localStorage._data = { string: "value" };
 			try {
 				thisModule("string");
@@ -619,23 +596,36 @@ describe(`The module "${thisModulePath}"`, () => {
 		}));
 
 		it("should return the item for this uri if it's fresh", (() => {
-			global.window.localStorage.setItem(thisCreateKey("string"), thisCreateItem("string", "value-HTML"));
+			var _key1 = thisCreateKey("string");
+			var _obj = { };
+			_obj[_key1] = thisCreateItem("string", "value-HTML", { "Expires": (new Date(new Date(new Date().getTime() + (1000 * 60 * 60)).getTime())) });
+			global.window.localStorage.setItem("lakka", JSON.stringify(_obj));
 			thisModule("string").should.be.an("object");
 		}));
 
 		it("should purge the cache from stale items", (() => {
-			global.window.localStorage.setItem(thisCreateKey("string"), thisCreateItem("string", "value-HTML", { "Expires": (new Date(new Date(new Date().getTime() - (1000 * 60 * 60)).getTime())) }));
+			var _key1 = thisCreateKey("string");
+			var _key2 = thisCreateKey("string-2");
+			var _obj = {  };
+			_obj[_key1] = thisCreateItem("string", "value-HTML", { "Expires": (new Date(new Date(new Date().getTime() - (1000 * 60 * 60)).getTime())) });
+			_obj[_key2] = thisCreateItem("string-2", "value-HTML", { "Expires": (new Date(new Date(new Date().getTime() + (1000 * 60 * 60)).getTime())) });
+			global.window.localStorage.setItem("lakka", JSON.stringify(_obj));
 			try {
 				thisModule("string");
 			} catch (err) {
-				(global.window.localStorage.getItem(thisCreateKey("string")) === undefined).should.be.true;
+				_obj = JSON.parse(global.window.localStorage.getItem("lakka"));
+				_obj.hasOwnProperty(_key2).should.be.true;
+				_obj.hasOwnProperty(_key1).should.be.false;
 				return true;
 			}
 			throw new Error("Failed");
 		}));
 
 		it("should throw if the item for this uri is stale", (() => {
-			global.window.localStorage.setItem(thisCreateKey("string"), thisCreateItem("string", "value-HTML", { "Expires": (new Date(new Date(new Date().getTime() - (1000 * 60 * 60)).getTime())) }));
+			var _key1 = thisCreateKey("string");
+			var _obj = {  };
+			_obj[_key1] = thisCreateItem("string", "value-HTML", { "Expires": (new Date(new Date(new Date().getTime() - (1000 * 60 * 60)).getTime())) });
+			global.window.localStorage.setItem("lakka", JSON.stringify(_obj));
 			try {
 				thisModule("string");
 			} catch (err) {

@@ -71,11 +71,9 @@ const _validArguments = (args) => {
  * @return {Any} the configuration value
  */
 const _get =  (key) => {
-	// console.log(">>>>", key, validProperties.includes(key))
 	if (!key || typeof(key) !== "string" || validProperties.includes(key) !== true) {
 		throw new Error();
 	}
-	// console.log("<<<<", key, config[key])
 	return config[key];
 }
 

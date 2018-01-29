@@ -22,23 +22,6 @@ describe(`The module "${thisModulePath}"`, () => {
 
 	before(() => {
 
-		if (!global.window) {
-			global.window = {};
-		}
-		global.window._localStorage = global.window.localStorage;
-
-		global.window.localStorage = {
-			_data: {},
-			getItem(key) {
-
-			},
-			setItem(key, value) {
-
-			},
-			removeItem(key) {
-
-			},
-		};
 		facade = { _data: {}, "get": (key) => facade._data[key] };
 		spyFacade = sinon.spy(facade, "get");
 
@@ -50,8 +33,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 	after(() => {
 		spyFacade.restore();
-		global.window.localStorage = global.window._localStorage;
-		delete global.window._localStorage;
+		global.window.localStorage.clear();
 	})
 	afterEach(() => {
 		spyFacade.reset();

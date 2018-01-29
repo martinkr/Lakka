@@ -12,13 +12,6 @@
  * @author Martin Krause <github@mkrause.info>
  */
 
-/**
- * Checks if the content-type of the response indicates a cachable content
- * @sync
- * @memberof cache/valid-content-type
- * @param {String} element the content of the Content-Type header
- * @return {Boolean} true if cachable
- */
 const validPattern = [
 	new RegExp("application/json"),
 	new RegExp("text/x-json"),
@@ -26,6 +19,13 @@ const validPattern = [
 	new RegExp("text/html")
 ];
 
+/**
+ * Checks if the content-type of the response indicates a cachable content
+ * @sync
+ * @memberof cache/valid-content-type
+ * @param {String} element the content of the Content-Type header
+ * @return {Boolean} true if cachable
+ */
 module.exports = (content) => {
 	if (typeof (content) !== "string" || !content) {
 		return false;

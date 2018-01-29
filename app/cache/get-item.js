@@ -33,6 +33,5 @@ module.exports = (cache) =>
 			// throw;
 			throw new Error();
 		}
-		console.log("return",typeof(item))
 		return item;
 };

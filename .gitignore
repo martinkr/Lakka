@@ -13,10 +13,8 @@ coverage.html
 node_modules/*
 
 # ###
-## sublime files
-
-*.sublime-*
-*.sublime-*
+## editor files
+.vscode
 
 # ###
 ## osx files
@@ -40,6 +38,9 @@ $RECYCLE.BIN/
 *.log
 .vagrant
 .git
+notes.md
+todo.md
+specs.md
 
 
 

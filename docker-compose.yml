@@ -26,6 +26,7 @@ services:
             - "./.yarnrc:/home/node/.yarnrc"
             - "./.babelrc:/home/node/.babelrc"
             - "./.jsdoc.json:/home/node/.jsdoc.json"
+            - "./.uglify.json:/home/node/.uglify.json"
             - "./webpack.config.js:/home/node/webpack.config.js"
             - "./yarn.lock:/home/node/yarn.lock"
             - "./build.sh:/home/node/build.sh"

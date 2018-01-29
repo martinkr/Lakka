@@ -94,7 +94,6 @@ describe(`The module "${thisModulePath}"`, () => {
 	describe("should create the cache item. It:", () => {
 
 		it("should create an item from two arguments", () => {
-			console.log(thisModule(uri, responseString))
 			thisModule(uri, responseString).should.be.an("Object");
 		});
 
@@ -107,7 +106,6 @@ describe(`The module "${thisModulePath}"`, () => {
 		});
 
 		it("should create an item wich has a valid \"status\"", () => {
-			console.log(thisModule(uri, responseString, headers))
 			thisModule(uri, responseString, headers)["status"].should.equal(200);
 		});
 

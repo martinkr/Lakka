@@ -81,7 +81,6 @@ const _fromExpiresHeader = (expiresHeaderValue) => {
 module.exports = (cacheControlHeaderValue, expiresHeaderValue, defaultValidity) => {
 	// return new Date().getTime() + defaultValidity;
 	let _now = new Date().getTime();
-	// console.log("\n\n\n---\n>>", cacheControlHeader, expiresHeader, defaultValidity)
 
 	// cache-control header
 	try {
