@@ -68,13 +68,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 	});
 
-	describe.skip("should handle Errors. It:", () => {
 
-		it("should throw if there's no \"window.localStorage\"", ( () => {
-			// delete global.window.localStorage;
-		}));
-
-	});
 
 	describe("should have an API \"set\". It:", () => {
 
@@ -89,18 +83,20 @@ describe(`The module "${thisModulePath}"`, () => {
 			return true;
 		}));
 
-		it("should call \"window.localStorage.setItem\" and save the values unter \"lakka\"", ( () => {
+		it("should call \"window.localStorage.setItem\" and save the values unter \"lakka\"", (() => {
 			try {
 				thisModule.set("foo", "bar");
 			} catch (err) {
 				console.error("error: ", err)
 			}
-			spySet.should.have.been.calledWith("lakka", JSON.stringify({"foo":"bar"}));
+			spySet.should.have.been.calledWith("lakka", JSON.stringify({
+				"foo": "bar"
+			}));
 			return true;
 		}));
 
 
-		it("should call \"window.localStorage.setItem\" and save the values unter \"lakka\" even if there are already values", ( () => {
+		it("should call \"window.localStorage.setItem\" and save the values unter \"lakka\" even if there are already values", (() => {
 			try {
 				thisModule.set("foo", "foofoo");
 				thisModule.set("bar", "barfoo");
@@ -108,52 +104,68 @@ describe(`The module "${thisModulePath}"`, () => {
 			} catch (err) {
 				console.error("error: ", err)
 			}
-			spySet.should.have.been.calledWith("lakka", JSON.stringify({"foo": "foofoo", "bar": "barfoo", "baz": "bazfoo" }));
+			spySet.should.have.been.calledWith("lakka", JSON.stringify({
+				"foo": "foofoo",
+				"bar": "barfoo",
+				"baz": "bazfoo"
+			}));
 			return true;
 		}));
 
 
-		it("should save Strings only (stringify an Object)", ( () => {
+		it("should save Strings only (stringify an Object)", (() => {
 			try {
-				thisModule.set("foo", {"bar": "baz"});
+				thisModule.set("foo", {
+					"bar": "baz"
+				});
 			} catch (err) {
 				console.error("error: ", err)
 			}
-			spySet.should.have.been.calledWith("lakka", JSON.stringify({"foo": {"bar": "baz"} }));
+			spySet.should.have.been.calledWith("lakka", JSON.stringify({
+				"foo": {
+					"bar": "baz"
+				}
+			}));
 			return true;
 		}));
 
-		it("should save Strings only (stringify an Array)", ( () => {
+		it("should save Strings only (stringify an Array)", (() => {
 			try {
 				thisModule.set("foo", ["bar", "baz"]);
 			} catch (err) {
 				console.error("error: ", err)
 			}
-			spySet.should.have.been.calledWith("lakka", JSON.stringify({"foo": ["bar", "baz"] }));
+			spySet.should.have.been.calledWith("lakka", JSON.stringify({
+				"foo": ["bar", "baz"]
+			}));
 			return true;
 		}));
 
-		it("should save Strings only (stringify a Number)", ( () => {
+		it("should save Strings only (stringify a Number)", (() => {
 			try {
 				thisModule.set("foo", 10);
 			} catch (err) {
 				console.error("error: ", err)
 			}
-			spySet.should.have.been.calledWith("lakka", JSON.stringify({"foo": 10 }));
+			spySet.should.have.been.calledWith("lakka", JSON.stringify({
+				"foo": 10
+			}));
 			return true;
 		}));
 
-		it("should save Strings only (stringify a Boolean true)", ( () => {
+		it("should save Strings only (stringify a Boolean true)", (() => {
 			try {
 				thisModule.set("foo", true);
 			} catch (err) {
 				console.error("error: ", err)
 			}
-			spySet.should.have.been.calledWith("lakka", JSON.stringify({"foo": true}));
+			spySet.should.have.been.calledWith("lakka", JSON.stringify({
+				"foo": true
+			}));
 			return true;
 		}));
 
-		it("should throw if the value evaluates to false (false)", ( () => {
+		it("should throw if the value evaluates to false (false)", (() => {
 			try {
 				thisModule.set("foo", false);
 			} catch (err) {
@@ -164,18 +176,20 @@ describe(`The module "${thisModulePath}"`, () => {
 		}));
 
 
-		it("should create a fresh \"lakka\"-object if the storage is blank ", ( () => {
+		it("should create a fresh \"lakka\"-object if the storage is blank ", (() => {
 			global.window.localStorage.clear();
 			try {
 				thisModule.set("foo", "bar");
 			} catch (err) {
 				console.error("error: ", err)
 			}
-			spySet.should.have.been.calledWith("lakka", JSON.stringify({"foo": "bar"}));
+			spySet.should.have.been.calledWith("lakka", JSON.stringify({
+				"foo": "bar"
+			}));
 		}));
 
 
-		it("should throw if the value evaluates to false (0)", ( () => {
+		it("should throw if the value evaluates to false (0)", (() => {
 			try {
 				thisModule.set("foo", 0);
 			} catch (err) {
@@ -185,18 +199,20 @@ describe(`The module "${thisModulePath}"`, () => {
 			throw new Error("Failed");
 		}));
 
-		it("should not throw if the value is an empty string (\"\")", ( () => {
+		it("should not throw if the value is an empty string (\"\")", (() => {
 			try {
 				thisModule.set("foo", "");
 			} catch (err) {
 				console.error("error: ", err)
 			}
-			spySet.should.have.been.calledWith("lakka", JSON.stringify({"foo":""}));
+			spySet.should.have.been.calledWith("lakka", JSON.stringify({
+				"foo": ""
+			}));
 			return true;
 		}));
 
 
-		it("should throw if \"window.localStorage.setItem\" is not available", ( () => {
+		it("should throw if \"window.localStorage.setItem\" is not available", (() => {
 			spySet.reset();
 			window.localStorage.setItem = undefined;
 
@@ -208,7 +224,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			return true;
 		}));
 
-		it("should throw if we're missing both arguments", ( () => {
+		it("should throw if we're missing both arguments", (() => {
 			try {
 				thisModule.set();
 			} catch (err) {
@@ -218,7 +234,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			throw new Error("Failed");
 		}));
 
-		it("should throw if we're missing one arguments", ( () => {
+		it("should throw if we're missing one arguments", (() => {
 			try {
 				thisModule.set("foo");
 			} catch (err) {
@@ -235,17 +251,17 @@ describe(`The module "${thisModulePath}"`, () => {
 
 	describe("should have an API \"get\". It:", () => {
 
-		it("should call \"window.localStorage.getItem\" and get the \"lakka\" object", ( () => {
+		it("should call \"window.localStorage.getItem\" and get the \"lakka\" object", (() => {
 			try {
 				thisModule.get("foo");
 			} catch (err) {
-				console.error("error: ", err)
+				// console.error("error: ", err)
 			}
 			spyGet.should.have.been.calledWith("lakka");
 			return true;
 		}));
 
-		it("should throw if \"window.localStorage.getItem\" is not available", ( () => {
+		it("should throw if \"window.localStorage.getItem\" is not available", (() => {
 			spyGet.reset();
 			window.localStorage.getItem = undefined;
 
@@ -257,7 +273,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			return true;
 		}));
 
-		it("should throw if we're missing the arguments", ( () => {
+		it("should throw if we're missing the arguments", (() => {
 			try {
 				thisModule.get();
 			} catch (err) {
@@ -268,34 +284,54 @@ describe(`The module "${thisModulePath}"`, () => {
 		}));
 
 		it("should return the value from the \"lakka\" object stored at window.localStorage", (() => {
-			window.localStorage.setItem("lakka", JSON.stringify({"foo": { "bar": "baz" }}));
+			window.localStorage.setItem("lakka", JSON.stringify({
+				"foo": {
+					"bar": "baz"
+				}
+			}));
 			let _result = thisModule.get("foo");
-			_result.should.deep.equal({"bar":"baz"});
+			_result.should.deep.equal({
+				"bar": "baz"
+			});
 			return true;
 		}));
 
 		it("should return the value from the \"lakka\" object stored at window.localStorage even if there are a multiple items", (() => {
 
 			thisModule.set("foo", "foofoo");
-			thisModule.set("bar", {"foo": "bar" });
-			thisModule.set("baz", ["foo","baz"]);
-			spySet.should.have.been.calledWith("lakka", JSON.stringify({ "foo": "foofoo", "bar": {"foo": "bar" }, "baz": ["foo","baz"] }));
+			thisModule.set("bar", {
+				"foo": "bar"
+			});
+			thisModule.set("baz", ["foo", "baz"]);
+			spySet.should.have.been.calledWith("lakka", JSON.stringify({
+				"foo": "foofoo",
+				"bar": {
+					"foo": "bar"
+				},
+				"baz": ["foo", "baz"]
+			}));
 
 			let _result = thisModule.get("bar");
-			_result.should.deep.equal({"foo": "bar"});
+			_result.should.deep.equal({
+				"foo": "bar"
+			});
 			return true;
 		}));
 
 
-		it("should return the value from window.localStorage - \"null\" if there's no value for the key", ( () => {
-			window.localStorage.setItem("lakka", JSON.stringify({"foo": null }));
+		it("should return the value from window.localStorage - \"null\" if there's no value for the key", (() => {
+			window.localStorage.setItem("lakka", JSON.stringify({
+				"foo": null
+			}));
 			let _result = thisModule.get("foo");
 			(_result === null).should.be.true;
 			return true;
 		}));
 
-		it("should return the value from window.localStorage - \"null\" if there's no item for the key", ( () => {
-			window.localStorage.setItem("lakka", JSON.stringify({"foo": null }));
+		it("should return the value from window.localStorage - \"null\" if there's no item for the key", (() => {
+			window.localStorage.setItem("lakka", JSON.stringify({
+				"foo": null
+			}));
 			let _result = thisModule.get("bar");
 			(_result === null).should.be.true;
 			return true;
@@ -319,7 +355,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			return true;
 		}));
 
-		it("should call \"window.localStorage.setItem\" with a \"lakka\" object cleaned of the item", ( () => {
+		it("should call \"window.localStorage.setItem\" with a \"lakka\" object cleaned of the item", (() => {
 			try {
 				thisModule.set("foo", "foofoo");
 				spySet.reset();
@@ -331,23 +367,36 @@ describe(`The module "${thisModulePath}"`, () => {
 			return true;
 		}));
 
-		it("should call \"window.localStorage.setItem\" with a \"lakka\" object cleaned of the item and preserve existing", ( () => {
+		it("should call \"window.localStorage.setItem\" with a \"lakka\" object cleaned of the item and preserve existing", (() => {
 			try {
 				thisModule.set("foo", "foofoo");
-				thisModule.set("bar", {"foo": "bar" });
-				thisModule.set("baz", ["foo","baz"]);
-				spySet.should.have.been.calledWith("lakka", JSON.stringify({ "foo": "foofoo", "bar": {"foo": "bar" }, "baz": ["foo","baz"] }));
+				thisModule.set("bar", {
+					"foo": "bar"
+				});
+				thisModule.set("baz", ["foo", "baz"]);
+				spySet.should.have.been.calledWith("lakka", JSON.stringify({
+					"foo": "foofoo",
+					"bar": {
+						"foo": "bar"
+					},
+					"baz": ["foo", "baz"]
+				}));
 
 				thisModule.del("foo");
 			} catch (err) {
 				console.error("error: ", err)
 			}
-			spySet.should.have.been.calledWith("lakka", JSON.stringify({ "bar": {"foo": "bar" }, "baz": ["foo","baz"] }));
+			spySet.should.have.been.calledWith("lakka", JSON.stringify({
+				"bar": {
+					"foo": "bar"
+				},
+				"baz": ["foo", "baz"]
+			}));
 			return true;
 		}));
 
 
-		it("should throw if we're missing the arguments", ( () => {
+		it("should throw if we're missing the arguments", (() => {
 			try {
 				thisModule.del();
 			} catch (err) {
@@ -387,15 +436,23 @@ describe(`The module "${thisModulePath}"`, () => {
 		it("should call \"window.localStorage.setItem\" with an empty \"lakak\" object", (() => {
 			try {
 				thisModule.set("foo", "foofoo");
-				thisModule.set("bar", {"foo": "bar" });
-				thisModule.set("baz", ["foo","baz"]);
-				spySet.should.have.been.calledWith("lakka", JSON.stringify({ "foo": "foofoo", "bar": {"foo": "bar" }, "baz": ["foo","baz"] }));
+				thisModule.set("bar", {
+					"foo": "bar"
+				});
+				thisModule.set("baz", ["foo", "baz"]);
+				spySet.should.have.been.calledWith("lakka", JSON.stringify({
+					"foo": "foofoo",
+					"bar": {
+						"foo": "bar"
+					},
+					"baz": ["foo", "baz"]
+				}));
 				spySet.reset();
 				thisModule.flush();
 			} catch (err) {
 				console.error("error: ", err)
 			}
-			spySet.should.have.been.calledWith("lakka", JSON.stringify({ }));
+			spySet.should.have.been.calledWith("lakka", JSON.stringify({}));
 			return true;
 		}));
 	});

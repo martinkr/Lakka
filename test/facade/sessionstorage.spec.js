@@ -75,14 +75,6 @@ describe(`The module "${thisModulePath}"`, () => {
 
 	});
 
-	describe.skip("should handle Errors. It:", () => {
-
-		it("should throw if there's no \"window.sessionStorage\"", (() => {
-			// delete global.window.sessionStorage;
-		}));
-
-	});
-
 	describe("should have an API \"set\". It:", () => {
 
 		it("should call \"window.sessionStorage.setItem\"", (() => {

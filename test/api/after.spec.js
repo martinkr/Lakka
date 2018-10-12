@@ -43,8 +43,7 @@ describe(`The module "${thisModulePath}"`, () => {
 		// stubAndReturn(true);
 	})
 
-	after(() => {
-	})
+	after(() => {})
 
 
 	describe("should provide an unified API. It:", () => {
@@ -58,7 +57,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should not throw if the first argument is a \"String\"", (() => {
 			try {
-				thisModule("string", "response", 200, {} );
+				thisModule("string", "response", 200, {});
 			} catch (err) {
 				throw new Error("Failed");
 			}
@@ -67,7 +66,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the first argument is a boolean \"true\" and not a \"String\"", (() => {
 			try {
-				thisModule(true, "response", 200, {} );
+				thisModule(true, "response", 200, {});
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -77,7 +76,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the first argument is a boolean \"false\" and not a \"String\"", (() => {
 			try {
-				thisModule(false, "response", 200, {} );
+				thisModule(false, "response", 200, {});
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -87,7 +86,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the first argument is an \"Array\" and not a \"String\"", (() => {
 			try {
-				thisModule([], "response", 200, {} );
+				thisModule([], "response", 200, {});
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -97,7 +96,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the first argument is an \"Object\" and not a \"String\"", (() => {
 			try {
-				thisModule({}, "response", 200, {} );
+				thisModule({}, "response", 200, {});
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -107,7 +106,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the first argument is a \"Number\" and not a \"String\"", (() => {
 			try {
-				thisModule(1, "response", 200, {} );
+				thisModule(1, "response", 200, {});
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -118,7 +117,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should not throw if the second argument is a \"String\"", (() => {
 			try {
-				thisModule("string", "response", 200, {} );
+				thisModule("string", "response", 200, {});
 			} catch (err) {
 				throw new Error("Failed");
 			}
@@ -127,7 +126,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the second argument is a boolean \"true\" and not an \"string\"", (() => {
 			try {
-				thisModule("string", true, 200, {} );
+				thisModule("string", true, 200, {});
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -137,7 +136,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the second argument is a boolean \"false\" and not an \"string\"", (() => {
 			try {
-				thisModule("string", false, 200, {} );
+				thisModule("string", false, 200, {});
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -147,7 +146,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the second argument is an \"Array\" and not an \"string\"", (() => {
 			try {
-				thisModule("string", [], 200, {} );
+				thisModule("string", [], 200, {});
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -157,7 +156,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the second argument is a \"Object\" and not an \"string\"", (() => {
 			try {
-				thisModule("string", {}, 200, {} );
+				thisModule("string", {}, 200, {});
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -167,7 +166,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the second argument is a \"Number\" and not an \"string\"", (() => {
 			try {
-				thisModule("string", 1, 200, {} );
+				thisModule("string", 1, 200, {});
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -179,7 +178,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should not throw if the third argument is a \"String\"", (() => {
 			try {
-				thisModule("string", "response", "200", {} );
+				thisModule("string", "response", "200", {});
 			} catch (err) {
 				throw new Error("Failed");
 			}
@@ -188,7 +187,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should not throw if the third argument is a \"Number\"", (() => {
 			try {
-				thisModule("string", "response", 200, {} );
+				thisModule("string", "response", 200, {});
 			} catch (err) {
 				throw new Error("Failed");
 			}
@@ -197,7 +196,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the third argument is a boolean \"true\" and not an \"string|number\"", (() => {
 			try {
-				thisModule("string", "response", true, {} );
+				thisModule("string", "response", true, {});
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -207,7 +206,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the third argument is a boolean \"false\" and not an \"string|number\"", (() => {
 			try {
-				thisModule("string", "response", false, {} );
+				thisModule("string", "response", false, {});
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -217,7 +216,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the third argument is an \"Array\" and not an \"string|number\"", (() => {
 			try {
-				thisModule("string", "response", [], {} );
+				thisModule("string", "response", [], {});
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -227,7 +226,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the third argument is a \"Object\" and not an \"string|number\"", (() => {
 			try {
-				thisModule("string", "response", {}, {} );
+				thisModule("string", "response", {}, {});
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -238,7 +237,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should not throw if the fourth argument is an \"Object\"", (() => {
 			try {
-				thisModule("string", "response", 200, {} );
+				thisModule("string", "response", 200, {});
 			} catch (err) {
 				throw new Error("Failed");
 			}
@@ -247,7 +246,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the fourth argument is a boolean \"true\" and not an \"Object\"", (() => {
 			try {
-				thisModule("string", "response", 200, true );
+				thisModule("string", "response", 200, true);
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -257,7 +256,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the fourth argument is a boolean \"false\" and not an \"Object\"", (() => {
 			try {
-				thisModule("string", "response", 200, false );
+				thisModule("string", "response", 200, false);
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -267,7 +266,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the fourth argument is an \"Array\" and not an \"Object\"", (() => {
 			try {
-				thisModule("string", "response", 200, [] );
+				thisModule("string", "response", 200, []);
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -277,7 +276,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the fourth argument is a \"String\" and not an \"Object\"", (() => {
 			try {
-				thisModule("string", "response", 200, "string" );
+				thisModule("string", "response", 200, "string");
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -287,7 +286,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the fourth argument is a \"Number\" and not an \"Object\"", (() => {
 			try {
-				thisModule("string", "response", 200, 1 );
+				thisModule("string", "response", 200, 1);
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -322,7 +321,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should not throw if no pattern is set", (() => {
 			try {
-				thisModule("string", "response", 200, {} );
+				thisModule("string", "response", 200, {});
 			} catch (err) {
 				throw new Error("Failed");
 			}
@@ -332,7 +331,7 @@ describe(`The module "${thisModulePath}"`, () => {
 		it("should throw if the uri matches the \"exclude\" pattern", (() => {
 			thisConfig.set("exclude", "matchMe");
 			try {
-				thisModule("/matchMe.html", "response", 200, {} );
+				thisModule("/matchMe.html", "response", 200, {});
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -344,7 +343,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			thisConfig.set("exclude", "matchMe");
 			thisConfig.set("include", "includeMe");
 			try {
-				thisModule("/matchMe.html", "response", 200, {} );
+				thisModule("/matchMe.html", "response", 200, {});
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -356,7 +355,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			thisConfig.set("exclude", "matchMe");
 			thisConfig.set("include", "matchMe");
 			try {
-				thisModule("/matchMe.html", "response", 200, {} );
+				thisModule("/matchMe.html", "response", 200, {});
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -368,7 +367,7 @@ describe(`The module "${thisModulePath}"`, () => {
 		it("should not throw if the uri matches the \"include\" pattern if one is set", (() => {
 			thisConfig.set("include", "matchMe");
 			try {
-				thisModule("/matchMe.html", "response", 200, {} );
+				thisModule("/matchMe.html", "response", 200, {});
 			} catch (err) {
 				throw new Error("Failed");
 			}
@@ -378,7 +377,7 @@ describe(`The module "${thisModulePath}"`, () => {
 		it("should throw if the uri does not matches the \"include\" pattern if one is set", (() => {
 			thisConfig.set("include", "matchMe");
 			try {
-				thisModule("/noMatch.html", "response", 200, {} );
+				thisModule("/noMatch.html", "response", 200, {});
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -440,7 +439,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			};
 		});
 
-		after(() => { });
+		after(() => {});
 
 		it("should not throw if there's no headers-property", (() => {
 			try {
@@ -564,7 +563,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			};
 		});
 
-		after(() => { });
+		after(() => {});
 		it("should not throw if the Content-Type-Header is set to \"application/json\"", (() => {
 			try {
 				_options.headers["Content-Type"] = "application/json";
@@ -643,13 +642,13 @@ describe(`The module "${thisModulePath}"`, () => {
 			};
 		});
 
-		after(() => { });
+		after(() => {});
 
 		it("should not throw if the Expires-Header has a future date", (() => {
 			try {
 				delete _options.headers["Cache-Control"];
 				delete _options.headers["Expires"];
-				_options.headers["Expires"] = ""+new Date(new Date(new Date().getTime() + (1000 * 60 * 60)).getTime()) ;
+				_options.headers["Expires"] = "" + new Date(new Date(new Date().getTime() + (1000 * 60 * 60)).getTime());
 				thisModule("string", "response", 200, _options);
 			} catch (err) {
 				throw new Error("Failed");
@@ -673,7 +672,7 @@ describe(`The module "${thisModulePath}"`, () => {
 		it("should throw if the Expires-Header has a stale date", (() => {
 			try {
 				delete _options.headers["Cache-Control"];
-				_options.headers["Expires"] = ""+new Date(new Date(new Date().getTime() - (1000 * 60 * 60)).getTime()) ;
+				_options.headers["Expires"] = "" + new Date(new Date(new Date().getTime() - (1000 * 60 * 60)).getTime());
 				thisModule("string", "response", 200, _options);
 			} catch (err) {
 				err.should.be.an("error");
@@ -702,7 +701,6 @@ describe(`The module "${thisModulePath}"`, () => {
 		it("should write to localStorage and be ok", (() => {
 			global.window.localStorage.clear();
 			thisModule("string", "response", 200, _options);
-			console.log(global.window.localStorage._data)
 			JSON.parse(global.window.localStorage.getItem("lakka"))["string"].should.be.ok;
 		}));
 
