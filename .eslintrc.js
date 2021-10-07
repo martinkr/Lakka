@@ -2,17 +2,15 @@
 module.exports = {
 	"root": true,
 	"extends": "eslint:recommended",
-	"parserOptions": { "ecmaVersion": 8 },
+	"parserOptions": { "ecmaVersion": 8 },
 	"env": {
 		"browser": true,
 		"es6": true,
 		"amd": true,
 		"node": true
-
 	},
 	"globals": {
-		"ENV": "",
-		"ENV_LOGLEVEL": "" // "verboose"
+
 	},
 
 	"rules": {

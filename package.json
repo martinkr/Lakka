@@ -4,9 +4,6 @@
   "description": "lakka. An asynchronous request accelerator.",
   "main": "./dist/lakka.js",
   "license": "MIT",
-  "engines": {
-    "node": ">=9.0.0"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/martinkr/lakka.git"
@@ -17,7 +14,7 @@
   "keywords": [],
   "scripts": {
     "prebuild": "yarn test",
-    "build": "yarn webpack && yarn uglify",
+    "build": "yarn webpack ",
     "eslint": "npx eslint ./app/**/*.js",
     "mocha": "npx mocha --reporter spec",
     "nyc": "npx nyc --clean npx mocha",
@@ -26,15 +23,14 @@
     "test": "yarn eslint && yarn nyc && yarn report && yarn coverage",
     "mocha-watch": "npx mocha --reporter min -w",
     "eslint-watch": "npx esw --watch ./app/**/*.js",
-    "webpack": "npx webpack -p",
-    "uglify": "npx uglifyjs ./dist/lakka.js --verbose --warn --config-file ./.uglify.json --output ./dist/lakka.js"
+    "webpack": "npx webpack --mode production --env production"
   },
   "dependencies": {},
   "devDependencies": {
-    "babel-core": "^6.26.3",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
     "babel-loader": "^8.2.2",
     "babel-minify-webpack-plugin": "^0.3.1",
-    "babel-preset-env": "^1.7.0",
     "babel-preset-minify": "^0.5.1",
     "chai": "^4.3.4",
     "eslint": "^7.32.0",
@@ -46,9 +42,8 @@
     "proxyquire": "^2.1.3",
     "sinon": "^11.1.2",
     "sinon-chai": "^3.7.0",
-    "uglify-js": "^3.14.2",
-    "uglifyjs": "^2.4.11",
-    "webpack": "^5.58.0"
+    "webpack": "^5.58.0",
+    "webpack-cli": "^4.9.0"
   },
   "bugs": {
     "url": "https://github.com/martinkr/lakka/issues"

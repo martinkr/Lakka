@@ -19,6 +19,7 @@ module.exports = {
 	},
 	devtool: 'source-map',
 	output: {
+		clean: true, // Clean the output directory before emit.
 		library: "lakka",
 		libraryTarget: "umd",
 		path: path.resolve(__dirname, "dist"),
