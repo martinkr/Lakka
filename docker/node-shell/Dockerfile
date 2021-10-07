@@ -1,5 +1,5 @@
 # use alpine linux with node and yarn and the user "node"
-FROM node:9.0.0-alpine
+FROM node:16-alpine3.11
 
 LABEL Description="Front end ops: shell"
 

@@ -1,5 +1,5 @@
 # use alpine linux with node and yarn and the user "node"
-FROM node:9.0.0-alpine
+FROM node:16-alpine3.11
 
 LABEL Description="All the node modules on a shared volume. If the package.json is changed. Rebuild the image."
 
