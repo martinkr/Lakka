@@ -1,5 +1,0 @@
-./test/**/*.spec.js
---require ./test/common.js
---recursive
---timeout 5000
-
