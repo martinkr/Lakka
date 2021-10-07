@@ -7,7 +7,7 @@
  * @author Martin Krause <github@mkrause.info>
  */
 
- /* eslint-env mocha */
+/* eslint-env mocha */
 
 const thisModulePath = "api/main";
 const proxyquire = require("proxyquire").noCallThru();
@@ -32,8 +32,8 @@ describe(`The module "${thisModulePath}"`, () => {
 		spyConfiguration = sinon.spy(stubConfiguration, "set");
 
 		stubCache = { "flush": () => true, "del": () => true };
-		spyCacheFlush =  sinon.spy(stubCache, "flush");
-		spyCacheDel =  sinon.spy(stubCache, "del");
+		spyCacheFlush = sinon.spy(stubCache, "flush");
+		spyCacheDel = sinon.spy(stubCache, "del");
 
 
 		stubAfter = sinon.spy();
@@ -60,10 +60,10 @@ describe(`The module "${thisModulePath}"`, () => {
 	});
 
 	afterEach((done) => {
-		stubAfter.reset();
-		stubBefore.reset();
-		spyConfiguration.reset();
-		spyConfiguration.reset();
+		stubAfter.resetHistory();
+		stubBefore.resetHistory();
+		spyConfiguration.resetHistory();
+		spyConfiguration.resetHistory();
 		done();
 	});
 

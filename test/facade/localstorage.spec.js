@@ -44,10 +44,10 @@ describe(`The module "${thisModulePath}"`, () => {
 	});
 
 	after((done) => {
-		spySet.reset();
-		spyGet.reset();
-		spyDel.reset();
-		spyFlush.reset();
+		spySet.resetHistory();
+		spyGet.resetHistory();
+		spyDel.resetHistory();
+		spyFlush.resetHistory();
 		done();
 	});
 
@@ -213,7 +213,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 
 		it("should throw if \"window.localStorage.setItem\" is not available", (() => {
-			spySet.reset();
+			spySet.resetHistory();
 			window.localStorage.setItem = undefined;
 
 			try {
@@ -262,7 +262,7 @@ describe(`The module "${thisModulePath}"`, () => {
 		}));
 
 		it("should throw if \"window.localStorage.getItem\" is not available", (() => {
-			spyGet.reset();
+			spyGet.resetHistory();
 			window.localStorage.getItem = undefined;
 
 			try {
@@ -346,7 +346,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			let _result;
 			try {
 				thisModule.set("foo", "foofoo");
-				spySet.reset();
+				spySet.resetHistory();
 				_result = thisModule.del("foo");
 			} catch (err) {
 				console.error("error: ", err)
@@ -358,7 +358,7 @@ describe(`The module "${thisModulePath}"`, () => {
 		it("should call \"window.localStorage.setItem\" with a \"lakka\" object cleaned of the item", (() => {
 			try {
 				thisModule.set("foo", "foofoo");
-				spySet.reset();
+				spySet.resetHistory();
 				thisModule.del("foo");
 			} catch (err) {
 				console.error("error: ", err)
@@ -414,7 +414,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			let _result;
 			try {
 				thisModule.set("foo", "foofoo");
-				spySet.reset();
+				spySet.resetHistory();
 				_result = thisModule.flush();
 			} catch (err) {
 				console.error("error: ", err)
@@ -447,7 +447,7 @@ describe(`The module "${thisModulePath}"`, () => {
 					},
 					"baz": ["foo", "baz"]
 				}));
-				spySet.reset();
+				spySet.resetHistory();
 				thisModule.flush();
 			} catch (err) {
 				console.error("error: ", err)

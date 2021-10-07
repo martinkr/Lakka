@@ -7,7 +7,7 @@
  * @author Martin Krause <github@mkrause.info>
  */
 
- /* eslint-env mocha */
+/* eslint-env mocha */
 
 const thisModulePath = "cache/set-item";
 const thisModule = require("./../../app/" + thisModulePath);
@@ -37,7 +37,7 @@ describe(`The module "${thisModulePath}"`, () => {
 		global.window.localStorage.clear();
 	})
 	afterEach(() => {
-		spyFacade.reset();
+		spyFacade.resetHistory();
 	});
 
 
@@ -49,7 +49,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should call the underlying cache with the correct parameters", () => {
 			try {
-			thisModule(facade)("key")("value");
+				thisModule(facade)("key")("value");
 				spyFacade.should.have.been.called.with(facade, "key", "value");
 			} catch (err) {
 				return true;

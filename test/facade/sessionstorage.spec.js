@@ -37,8 +37,8 @@ describe(`The module "${thisModulePath}"`, () => {
 				getItem() {
 					return "stub";
 				},
-				setItem() {},
-				removeItem() {},
+				setItem() { },
+				removeItem() { },
 			};
 		}
 		spySet = sinon.spy(global.window.sessionStorage, "setItem");
@@ -49,9 +49,9 @@ describe(`The module "${thisModulePath}"`, () => {
 
 
 	after((done) => {
-		spySet.reset();
-		spyGet.reset();
-		spyDel.reset();
+		spySet.resetHistory();
+		spyGet.resetHistory();
+		spyDel.resetHistory();
 		done();
 	});
 

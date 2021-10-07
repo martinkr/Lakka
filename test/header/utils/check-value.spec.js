@@ -31,7 +31,7 @@ describe(`The module "${thisModulePath}"`, () => {
 	let spy = sinon.spy(fn, "fooFn");
 
 	afterEach((done) => {
-		spy.reset();
+		spy.resetHistory();
 		done();
 	});
 

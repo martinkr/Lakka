@@ -26,7 +26,7 @@ services:
             - "./.yarnrc:/home/node/.yarnrc"
             - "./.babelrc:/home/node/.babelrc"
             - "./.jsdoc.json:/home/node/.jsdoc.json"
-            - "./.uglify.json:/home/node/.uglify.json"
+            - "./.mocharc.js:/home/node/.mocharc.js:ro"
             - "./webpack.config.js:/home/node/webpack.config.js"
             - "./yarn.lock:/home/node/yarn.lock"
             - "./build.sh:/home/node/build.sh"
@@ -62,6 +62,7 @@ services:
             - "./app:/home/node/app:ro"
             - "./test:/home/node/test:ro"
             - "./package.json:/home/node/package.json:ro"
+            - "./.mocharc.js:/home/node/.mocharc.js:ro"
         depends_on:
             - node-modules
             - node-shell
