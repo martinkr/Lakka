@@ -78,7 +78,7 @@ const _fromExpiresHeader = (expiresHeaderValue) => {
  * @param {String} defaultValidity the value of the default validity from the configuration
  * @return {Number|Error} the timestamp until the request should be cached
  */
-module.exports = (cacheControlHeaderValue, expiresHeaderValue, defaultValidity) => {
+const main = (cacheControlHeaderValue, expiresHeaderValue, defaultValidity) => {
 	// return new Date().getTime() + defaultValidity;
 	let _now = new Date().getTime();
 
@@ -101,3 +101,5 @@ module.exports = (cacheControlHeaderValue, expiresHeaderValue, defaultValidity) 
 	// no success - use default value
 	return Number(_now + defaultValidity);
 };
+
+export default main;

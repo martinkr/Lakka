@@ -26,16 +26,17 @@ const validPattern = [
  * @param {String} element the content of the Content-Type header
  * @return {Boolean} true if cachable
  */
-module.exports = (content) => {
+const main = (content) => {
 	if (typeof (content) !== "string" || !content) {
 		return false;
 	}
 	return validPattern.map((regexp) => {
 		return regexp.test(content);
 	})
-	.some((match) => {
-		return match === true;
-	});
+		.some((match) => {
+			return match === true;
+		});
 
 };
 
+export default main;

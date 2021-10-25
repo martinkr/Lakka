@@ -24,7 +24,7 @@
  * @param {Object} headers the headers object
  * @returns {String|null}
  */
-module.exports = (headers) =>
+const main = (headers) =>
 	/** @param {String} which the name of the header to look for @return {function} */
 	(which) =>
 		/** @param {Any} [defaultValue] the optional default value  @return {function} */
@@ -35,5 +35,7 @@ module.exports = (headers) =>
 			if (value) { return value; }
 			if (!value && defaultValue) { return defaultValue; }
 			return null;
-};
+		};
 
+
+export default main;

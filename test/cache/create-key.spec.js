@@ -7,10 +7,10 @@
  * @author Martin Krause <github@mkrause.info>
  */
 
- /* eslint-env mocha */
+/* eslint-env mocha */
 
+import thisModule from "./../../app/cache/create-key";
 const thisModulePath = "cache/create-key";
-const thisModule = require("./../../app/" + thisModulePath);
 
 const uri = "protocol://path/to/my/resouce";
 const validKey = escape(uri);

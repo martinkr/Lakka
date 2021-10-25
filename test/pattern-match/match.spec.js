@@ -11,8 +11,8 @@
 
 /* eslint-env mocha */
 
+import thisModule from "./../../app/pattern-match/main";
 const thisModulePath = "pattern-match/main";
-const thisModule = require("./../../app/" + thisModulePath);
 
 const uri = "protocol://path/to/my/resouce";
 let patterns;
@@ -74,12 +74,12 @@ describe(`The module "${thisModulePath}"`, () => {
 			(true).should.not.be.true;
 		});
 
-		it("should return true if the regular expression does match the uri", (async() => {
+		it("should return true if the regular expression does match the uri", (async () => {
 			patterns.push(new RegExp("path"));
 			thisModule(uri, patterns).should.be.true;
 		}));
 
-		it("should return false if the regular expression does not match the uri", (async() => {
+		it("should return false if the regular expression does not match the uri", (async () => {
 			patterns.push(new RegExp("fail"));
 			thisModule(uri, patterns).should.be.false;
 		}));

@@ -11,8 +11,9 @@
 
 /* eslint-env mocha */
 
+
+import thisModule from "./../../app/facade/sessionstorage";
 const thisModulePath = "facade/sessionstorage";
-const thisModule = require("./../../app/" + thisModulePath);
 
 let spySet;
 let spyGet;

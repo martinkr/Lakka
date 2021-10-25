@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 
-const fs = require("fs-extra-plus");
+import * as fs from "fs-extra-plus";
 
 const timeout = (fn) => new Promise((resolve) => setTimeout(() => resolve(fn()), 250));
 

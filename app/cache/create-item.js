@@ -22,13 +22,13 @@
  *
  * @author Martin Krause <github@mkrause.info>
  */
+import configuration from "./../configuration/main";
+import createKey from "./../cache/create-key";
+import calculateValidity from "./../cache/calculate-validity.js";
+import getHeaderValue from "./../header/utils/get-value.js";
 
-const configuration = require("./../configuration/main.js");
 const defaultMinutes = configuration.get("minutes");
-const defaultMiliseconds = defaultMinutes * 60000 ;
-const createKey = require("./../cache/create-key.js");
-const calculateValidity = require("./../cache/calculate-validity.js");
-const getHeaderValue = require("./../header/utils/get-value.js");
+const defaultMiliseconds = defaultMinutes * 60000;
 
 
 /**
@@ -40,18 +40,18 @@ const getHeaderValue = require("./../header/utils/get-value.js");
  * @param {Object} [headers] the optional header object
  * @return {Object} a cache item
  */
-module.exports = (uri, responseString, headers) => {
+const main = (uri, responseString, headers) => {
 	// we're only accepting strings as the first and second and an optional object as third parameter
-	if (typeof (uri) !== "string" || typeof (responseString) !== "string" || (headers && headers instanceof Object && headers.constructor === Object ) === false ) {
+	if (typeof (uri) !== "string" || typeof (responseString) !== "string" || (headers && headers instanceof Object && headers.constructor === Object) === false) {
 		throw new Error();
 	}
-	let _item = { "headers": {}};
+	let _item = { "headers": {} };
 	try {
 		_item.key = createKey(uri);
 		_item.status = 200;
 		_item.statusText = "cache"
 		_item.responseText = responseString;
-		_item.until = calculateValidity( getHeaderValue(headers)("Cache-Control")(null), getHeaderValue(headers)("Expires")(null), defaultMiliseconds);
+		_item.until = calculateValidity(getHeaderValue(headers)("Cache-Control")(null), getHeaderValue(headers)("Expires")(null), defaultMiliseconds);
 		_item.headers["Status"] = `${_item.status} ${_item.statusText}`;
 		_item.headers["Content-Type"] = getHeaderValue(headers)("Content-Type")("text/plain");
 		_item.headers["Cache-Control"] = getHeaderValue(headers)("Cache-Control")(null);
@@ -65,3 +65,5 @@ module.exports = (uri, responseString, headers) => {
 	}
 	return _item;
 };
+
+export default main;

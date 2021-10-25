@@ -19,10 +19,11 @@
  * @param {String} uri the uri
  * @return {String} the key for this uri
  */
-module.exports = (uri) => {
-	if ( typeof(uri) !== "string" ) {
+const main = (uri) => {
+	if (typeof (uri) !== "string") {
 		throw new Error();
 	}
 
 	return escape(uri);
 };
+export default main;

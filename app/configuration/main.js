@@ -12,10 +12,10 @@
  */
 
 // imports
-// import { getUsefulContents } from 'default.js';
-let config = require('./default.js');
+import defaults from './default';
+const validProperties = ["include", "exclude", "minutes"];
 
-const validProperties = ["include", "exclude","minutes"];
+let config = Object.assign({}, defaults);
 
 /**
  * Verifies if the arguments passed to ".set()" are valid.
@@ -55,7 +55,7 @@ const _validArguments = (args) => {
 	}
 
 	// two string arguments: check if the first one refers to a valid property
-	if ( args.length === 2 && typeof(args[0]) === "string" && typeof(args[1]) === "string" ) {
+	if (args.length === 2 && typeof (args[0]) === "string" && typeof (args[1]) === "string") {
 		return validProperties.includes(args[0]);
 	}
 
@@ -70,8 +70,8 @@ const _validArguments = (args) => {
  * @param {String} key the key for the sessionStorage item to get
  * @return {Any} the configuration value
  */
-const _get =  (key) => {
-	if (!key || typeof(key) !== "string" || validProperties.includes(key) !== true) {
+const _get = (key) => {
+	if (!key || typeof (key) !== "string" || validProperties.includes(key) !== true) {
 		throw new Error();
 	}
 	return config[key];
@@ -87,11 +87,11 @@ const _get =  (key) => {
  * @param {String} [value] the value to set. Skip if the first argument is a configuraiton object
  * @return {Any} the sessionStorages response
  */
-const _set =  (key, value) => {
+const _set = (key, value) => {
 	// unique
-	let args = [key, value].filter((element) => element );
+	let args = [key, value].filter((element) => element);
 
-	if ( !_validArguments(args)) {
+	if (!_validArguments(args)) {
 		throw new Error();
 	}
 
@@ -104,11 +104,11 @@ const _set =  (key, value) => {
 	if (key === "include" || key === "exclude") {
 		// we're storing regexp for performance reasons
 		/* istanbul ignore next */
-		if (typeof(value) === "string") {
+		if (typeof (value) === "string") {
 			value = new RegExp(value);
 		}
 		// ignore dublicates
-		if (config[key].some((element) => element.source === value.source ) ) {
+		if (config[key].some((element) => element.source === value.source)) {
 			return true;
 		}
 		config[key].push(value);
@@ -124,7 +124,7 @@ const _set =  (key, value) => {
 
 
 // API
-module.exports = {
+const api = {
 
 	/**
 	 * Retrives a value for a given key or null
@@ -148,3 +148,5 @@ module.exports = {
 	"set": (key, value) => _set(key, value)
 
 };
+
+export default api;

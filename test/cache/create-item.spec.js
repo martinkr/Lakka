@@ -18,11 +18,12 @@
  * @author Martin Krause <github@mkrause.info>
  */
 
- /* eslint-env mocha */
+/* eslint-env mocha */
 
+
+import createKey from "./../../app/cache/create-key";
+import thisModule from "./../../app/cache/create-item";
 const thisModulePath = "cache/create-item";
-const thisModule = require("./../../app/" + thisModulePath);
-const createKey = require("./../../app/cache/create-key");
 
 const uri = "protocol://path/to/my/resouce";
 const responseString = "content";
@@ -144,7 +145,7 @@ describe(`The module "${thisModulePath}"`, () => {
 		});
 
 		it("should create an item wich has a valid \"headers.Cache-Control\" from \"headers.Cache-Control\" ", () => {
-			headers["Cache-Control"] = ("public, max-age=" + (Math.floor(Math.random() * 999999999999))) ;
+			headers["Cache-Control"] = ("public, max-age=" + (Math.floor(Math.random() * 999999999999)));
 			thisModule(uri, responseString, headers)["headers"]["Cache-Control"].should.equal(headers["Cache-Control"]);
 		});
 
@@ -161,7 +162,7 @@ describe(`The module "${thisModulePath}"`, () => {
 		});
 
 		it("should use the lowercase \"content-type\" for \"Content-Type\"", () => {
-			thisModule(uri, responseString, {"content-type" : "x-custom"}).headers["Content-Type"].should.equal("x-custom");
+			thisModule(uri, responseString, { "content-type": "x-custom" }).headers["Content-Type"].should.equal("x-custom");
 		});
 	});
 
@@ -171,24 +172,24 @@ describe(`The module "${thisModulePath}"`, () => {
 			const _seed = Math.floor(Math.random() * 999999999999);
 			const _resultBase = new Date().getTime() + _seed;
 			// Cache-Control header is two hours : the validity should be around two hours (+/- 60sec)
-			thisModule(uri, responseString, {"Cache-Control" : ( "public, max-age=" + _seed )} )["until"].should.be.within(Number( _resultBase), Number(_resultBase + 100) );
+			thisModule(uri, responseString, { "Cache-Control": ("public, max-age=" + _seed) })["until"].should.be.within(Number(_resultBase), Number(_resultBase + 100));
 		});
 
 		it("should use the lowercase \"cache-control\" for \"until\"", () => {
 			const _seed = Math.floor(Math.random() * 999999999999);
 			const _resultBase = new Date().getTime() + _seed;
 			// Cache-Control header is two hours : the validity should be around two hours (+/- 60sec)
-			thisModule(uri, responseString, {"cache-control" : ( "public, max-age=" + _seed )} )["until"].should.be.within(Number( _resultBase), Number(_resultBase + 100) );
+			thisModule(uri, responseString, { "cache-control": ("public, max-age=" + _seed) })["until"].should.be.within(Number(_resultBase), Number(_resultBase + 100));
 		});
 
 		it("should use the \"Expires\" for \"until\"", () => {
 			// Expires header is two hours : the validity should be around two hours (+/- 60sec)
-			thisModule(uri, responseString, {"Expires" : ( new Date(new Date(new Date().getTime() + oneHour + oneHour).getTime()) )} )["until"].should.be.within(_resultBase + oneHour + oneHour - (1000 * 60), _resultBase + oneHour + oneHour + (1000 * 60));
+			thisModule(uri, responseString, { "Expires": (new Date(new Date(new Date().getTime() + oneHour + oneHour).getTime())) })["until"].should.be.within(_resultBase + oneHour + oneHour - (1000 * 60), _resultBase + oneHour + oneHour + (1000 * 60));
 		});
 
 		it("should use the lowercase \"expires\" for \"until\"", () => {
 			// Expires header is two hours : the validity should be around two hours (+/- 60sec)
-			thisModule(uri, responseString, {"expires" : ( new Date(new Date(new Date().getTime() + oneHour + oneHour).getTime()) )} )["until"].should.be.within(_resultBase + oneHour + oneHour - (1000 * 60), _resultBase + oneHour + oneHour + (1000 * 60));
+			thisModule(uri, responseString, { "expires": (new Date(new Date(new Date().getTime() + oneHour + oneHour).getTime())) })["until"].should.be.within(_resultBase + oneHour + oneHour - (1000 * 60), _resultBase + oneHour + oneHour + (1000 * 60));
 		});
 
 		it("should use the default \"60 minutes\" for \"until\"", () => {

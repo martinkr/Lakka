@@ -11,10 +11,10 @@
  * @author Martin Krause <github@mkrause.info>
  */
 
- /* eslint-env mocha */
+/* eslint-env mocha */
 
+import thisModule from "./../../app/configuration/main";
 const thisModulePath = "configuration/main";
-const thisModule = require("./../../app/" + thisModulePath);
 
 describe(`The module "${thisModulePath}"`, () => {
 
@@ -157,7 +157,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the value is an Object", (() => {
 			try {
-				thisModule.set("inlcude", {"foo": "bar"});
+				thisModule.set("inlcude", { "foo": "bar" });
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -177,7 +177,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the value is an Object", (() => {
 			try {
-				thisModule.set("include", {"foo": "bar"});
+				thisModule.set("include", { "foo": "bar" });
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -187,7 +187,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the value is a Function", (() => {
 			try {
-				thisModule.set("include", () => false );
+				thisModule.set("include", () => false);
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -232,7 +232,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the value for \"minutes\" is an Object", (() => {
 			try {
-				thisModule.set("minutes", {"foo": "bar"});
+				thisModule.set("minutes", { "foo": "bar" });
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -242,7 +242,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the value for \"minutes\" is a Function", (() => {
 			try {
-				thisModule.set("minutes", () => false );
+				thisModule.set("minutes", () => false);
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -250,27 +250,27 @@ describe(`The module "${thisModulePath}"`, () => {
 			throw new Error("Failed");
 		}));
 
-		it("should not set a value twice for \"include\"", ( () => {
+		it("should not set a value twice for \"include\"", (() => {
 			thisModule.set("include", ".?");
 			thisModule.set("include", ".?");
 			let _result = thisModule.get("include");
 			_result.should.have.a.lengthOf(1);
 		}));
 
-		it("should not set a value twice for \"exclude\"", ( () => {
+		it("should not set a value twice for \"exclude\"", (() => {
 			thisModule.set("exclude", ".?");
 			thisModule.set("exclude", ".?");
 			let _result = thisModule.get("exclude");
 			_result.should.have.a.lengthOf(1);
 		}));
 
-		it("should convert the value for \"include\" to a regexp", ( () => {
+		it("should convert the value for \"include\" to a regexp", (() => {
 			thisModule.set("include", ".?");
 			let _result = thisModule.get("include");
 			_result[0].should.be.a("RegExp");
 		}));
 
-		it("should convert the value for \"exclude\" to a regexp", ( () => {
+		it("should convert the value for \"exclude\" to a regexp", (() => {
 			thisModule.set("exclude", ".?");
 			let _result = thisModule.get("exclude");
 			_result[0].should.be.a("RegExp");
@@ -318,7 +318,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the key is an Object", (() => {
 			try {
-				thisModule.get({"foo": "bar"});
+				thisModule.get({ "foo": "bar" });
 			} catch (err) {
 				err.should.be.an("error");
 				return true;
@@ -341,23 +341,23 @@ describe(`The module "${thisModulePath}"`, () => {
 			_result.should.be.a("number");
 		}));
 
-		it("should return an array for \"include\"", ( () => {
+		it("should return an array for \"include\"", (() => {
 			let _result = thisModule.get("include");
 			_result.should.be.an("array");
 		}));
 
-		it("should return an array with regexp for \"include\"", ( () => {
+		it("should return an array with regexp for \"include\"", (() => {
 			thisModule.set("include", ".?");
 			let _result = thisModule.get("include");
 			_result[0].should.be.a("RegExp");
 		}));
 
-		it("should return an array for \"exclude\"", ( () => {
+		it("should return an array for \"exclude\"", (() => {
 			let _result = thisModule.get("exclude");
 			_result.should.be.an("array");
 		}));
 
-		it("should return an array with regexp for \"exclude\"", ( () => {
+		it("should return an array with regexp for \"exclude\"", (() => {
 			thisModule.set("exclude", ".?");
 			let _result = thisModule.get("exclude");
 			_result[0].should.be.a("RegExp");

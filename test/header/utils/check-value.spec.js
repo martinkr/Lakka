@@ -12,8 +12,8 @@
 
 /* eslint-env mocha */
 
+import thisModule from "./../../../app/header/utils/check-value";
 const thisModulePath = "header/utils/check-value";
-const thisModule = require("./../../../app/" + thisModulePath);
 
 let fn = {
 	"fooFn": (value) => value === "foo"

@@ -37,5 +37,6 @@
  * @param {String} element the content of the Status-Code of the response
  * @return {Boolean} true if cachable
  */
-module.exports = (element) => ["200", "203", "226"] .includes(element);
+const main = (element) => ["200", "203", "226"].includes(element);
 
+export default main;

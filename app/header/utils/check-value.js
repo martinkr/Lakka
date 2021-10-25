@@ -13,17 +13,17 @@
  * @author Martin Krause <github@mkrause.info>
  */
 
-const throwIfInvalid = require("./../../utils/throw-invalid.js");
+import throwIfInvalid from "./../../utils/throw-invalid";
 
- /**
- * Curried function returning if the value for a "header" property
- * inside the "options.headers" object is valid as decided by "fn"
- * @curried
- * @sync
- * @param {Function} fn which function to use for validating
- * @return {Boolean|Error} throws an Error if we should ignore this uri, defaults to true even if there's no value
- */
-module.exports =  (fn) =>
+/**
+* Curried function returning if the value for a "header" property
+* inside the "options.headers" object is valid as decided by "fn"
+* @curried
+* @sync
+* @param {Function} fn which function to use for validating
+* @return {Boolean|Error} throws an Error if we should ignore this uri, defaults to true even if there's no value
+*/
+const main = (fn) =>
 	/** @param {Object} options the options object, contains a headers object @return {function} */
 	(options) =>
 		/** @param {String} header the header to look up @return {function} */
@@ -34,6 +34,8 @@ module.exports =  (fn) =>
 			if (!value) { return true; }
 			throwIfInvalid(fn(value));
 			return true;
-};
+		};
+
+export default main;
 
 

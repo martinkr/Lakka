@@ -9,9 +9,9 @@
 
 /* eslint-env mocha */
 
+import thisModule, { $imports } from "./../../app/api/main";
+
 const thisModulePath = "api/main";
-const proxyquire = require("proxyquire").noCallThru();
-let thisModule;
 
 let stubConfiguration;
 let spyConfiguration;
@@ -42,15 +42,38 @@ describe(`The module "${thisModulePath}"`, () => {
 		stubBefore = sinon.spy();
 		spyBefore = stubBefore;
 
-
-		thisModule = proxyquire("./../../app/" + thisModulePath, {
+		// $imports.$mock((source, symbol, value) => {
+		// 	console.log("source: '", source, "', symbol: '", symbol, "', value: '", value, "' ")
+		// })
+		// mock imports
+		// import after from "./../api/after";
+		// import before from "./../api/before";
+		// import cacheFacade from "./../facade/localstorage";
+		// import configuration from "./../configuration/main";
+		$imports.$mock({
 			// replace dependencies mit spied on stubs
-			"./../configuration/main.js": stubConfiguration,
-			"./../api/after.js": stubAfter,
-			"./../api/before.js": stubBefore,
-			"./../facade/localstorage.js": stubCache
+			"./../configuration/main": {
+				default: stubConfiguration
+			},
+			"./../api/after": {
+				default: stubAfter
+			},
+			"./../api/before": {
+				default: stubBefore
+			},
+			"./../facade/localstorage": {
+				default: stubCache
+			},
 		});
 
+		// thisModule = proxyquire("./../../app/" + thisModulePath, {
+		// 	// replace dependencies mit spied on stubs
+		// 	"./../configuration/main.js": stubConfiguration,
+		// 	"./../api/after.js": stubAfter,
+		// 	"./../api/before.js": stubBefore,
+		// 	"./../facade/localstorage.js": stubCache
+		// });
+		// console.log(`${thisModulePath} thisModule => ${thisModule}`)
 		done();
 	});
 

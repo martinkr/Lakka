@@ -49,15 +49,16 @@ const ignorePattern = [
  * @param {String} the "Cache-Control" HTTP-Header's content
  * @return {Boolean} true if it is cacheable, false if not
  */
-module.exports = (content) => {
+const main = (content) => {
 	if (typeof (content) !== "string" || !content) {
 		return true;
 	}
 	return ignorePattern.map((regexp) => {
 		return regexp.test(content);
-	})
-	.every((match) => {
+	}).every((match) => {
 		return match === false;
 	});
 
 };
+
+export default main;

@@ -10,10 +10,8 @@
 
 /* eslint-env mocha */
 
+import thisModule from "./../../app/utils/throw-invalid";
 const thisModulePath = "utils/throw-invalid";
-const thisModule = require("./../../app/" + thisModulePath);
-
-
 describe(`The module "${thisModulePath}"`, () => {
 
 	describe("should provide an unified API. It:", () => {
@@ -35,7 +33,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			throw new Error("Failed");
 		}));
 
-		it("should throw if the value is \"undefined\"", ( ()=> {
+		it("should throw if the value is \"undefined\"", (() => {
 			try {
 				thisModule(undefined);
 			} catch (err) {
@@ -45,7 +43,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			throw new Error("Failed");
 		}));
 
-		it("should throw if the value is \"null\"", ( ()=> {
+		it("should throw if the value is \"null\"", (() => {
 			try {
 				thisModule(null);
 			} catch (err) {
@@ -55,7 +53,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			throw new Error("Failed");
 		}));
 
-		it("should throw if the value is \"\"", ( ()=> {
+		it("should throw if the value is \"\"", (() => {
 			try {
 				thisModule();
 			} catch (err) {
@@ -65,7 +63,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			throw new Error("Failed");
 		}));
 
-		it("should throw if the value is an \"Error\"", ( ()=> {
+		it("should throw if the value is an \"Error\"", (() => {
 			try {
 				thisModule(new Error());
 			} catch (err) {
@@ -75,7 +73,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			throw new Error("Failed");
 		}));
 
-		it("should not throw if the value is \"true\"", ( ()=> {
+		it("should not throw if the value is \"true\"", (() => {
 			try {
 				thisModule(true);
 			} catch (err) {
@@ -84,7 +82,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			return true;
 		}));
 
-		it("should not throw if the value is a \"Number\"", ( ()=> {
+		it("should not throw if the value is a \"Number\"", (() => {
 			try {
 				thisModule(100);
 			} catch (err) {
@@ -93,7 +91,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			return true;
 		}));
 
-		it("should not throw if the value is a \"String\"", ( ()=> {
+		it("should not throw if the value is a \"String\"", (() => {
 			try {
 				thisModule("string");
 			} catch (err) {
@@ -102,7 +100,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			return true;
 		}));
 
-		it("should not throw if the value is an \"Array\"", ( ()=> {
+		it("should not throw if the value is an \"Array\"", (() => {
 			try {
 				thisModule([]);
 			} catch (err) {
@@ -111,7 +109,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			return true;
 		}));
 
-		it("should not throw if the value is an \"Object\"", ( ()=> {
+		it("should not throw if the value is an \"Object\"", (() => {
 			try {
 				thisModule({});
 			} catch (err) {
@@ -120,7 +118,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			return true;
 		}));
 
-		it("should not throw if the value is 0", ( ()=> {
+		it("should not throw if the value is 0", (() => {
 			try {
 				thisModule(0);
 			} catch (err) {

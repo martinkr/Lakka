@@ -23,13 +23,10 @@ services:
             - "./package.json:/home/node/package.json"
             - "./.eslintrc.js:/home/node/.eslintrc.js:ro"
             - "./.eslintignore:/home/node/.eslintignore:ro"
-            - "./.yarnrc:/home/node/.yarnrc"
             - "./.babelrc:/home/node/.babelrc"
-            - "./.jsdoc.json:/home/node/.jsdoc.json"
             - "./.mocharc.js:/home/node/.mocharc.js:ro"
             - "./webpack.config.js:/home/node/webpack.config.js"
             - "./yarn.lock:/home/node/yarn.lock"
-            - "./build.sh:/home/node/build.sh"
         depends_on:
             - node-modules
         command:
@@ -62,6 +59,7 @@ services:
             - "./app:/home/node/app:ro"
             - "./test:/home/node/test:ro"
             - "./package.json:/home/node/package.json:ro"
+            - "./.babelrc:/home/node/.babelrc:ro"
             - "./.mocharc.js:/home/node/.mocharc.js:ro"
         depends_on:
             - node-modules
@@ -71,4 +69,4 @@ services:
 
 
 volumes:
-  shared-node-modules:
+    shared-node-modules:

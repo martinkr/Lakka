@@ -27,7 +27,7 @@
  * @param {String} [value] the value for setting a value
  * @return {Any} the localStorages response
  */
-const _proxy = async(action, key, value) => {
+const _proxy = async (action, key, value) => {
 	if (!action || !key) {
 		throw new Error("Missing arguments");
 	}
@@ -47,7 +47,7 @@ const _proxy = async(action, key, value) => {
 				return window.localStorage.removeItem(key);
 
 			case "has":
-				return  Boolean(window.localStorage.getItem(key));
+				return Boolean(window.localStorage.getItem(key));
 
 		}
 	} catch (err) {
@@ -58,7 +58,7 @@ const _proxy = async(action, key, value) => {
 
 
 // API
-module.exports = {
+const api = {
 
 	/**
 	 * Retrives a value for a given key or null
@@ -68,7 +68,7 @@ module.exports = {
 	 * @param {String} key the key for the localStorage item to get
 	 * @return {Any} the localStorages response, null if there's no item
 	 */
-	"get": async(key) => await _proxy("get", key),
+	"get": async (key) => await _proxy("get", key),
 
 	/**
 	 * Stores a key/value pair
@@ -79,7 +79,7 @@ module.exports = {
 	 * @param {String} value the value for setting a value
 	 * @return {Any} the localStorages response
 	 */
-	"set": async(key, value) => await _proxy("set", key, value),
+	"set": async (key, value) => await _proxy("set", key, value),
 
 	/**
 	 * Deletes an item
@@ -89,7 +89,7 @@ module.exports = {
 	 * @param {String} key the key for the localStorage item to delete
 	 * @return {Any} the localStorages response
 	 */
-	"del": async(key) => await _proxy("del", key),
+	"del": async (key) => await _proxy("del", key),
 
 	/**
 	 * Returns a boolean value indicating if there's an entry for this key
@@ -99,5 +99,8 @@ module.exports = {
 	 * @param {String} key the key for the localStorage item to check
 	 * @return {Boolean}
 	 */
-	"has": async(key) => await _proxy("has", key),
+	"has": async (key) => await _proxy("has", key),
 };
+
+
+export default api;

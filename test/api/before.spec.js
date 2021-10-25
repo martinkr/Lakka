@@ -11,13 +11,14 @@
 
 /* eslint-env mocha */
 
+
+import thisModule from "./../../app/api/before";
+import thisConfig from "./../../app/configuration/main";
+import thisCreateKey from "./../../app/cache/create-key";
+import thisCreateItem from "./../../app/cache/create-item";
+
 const thisModulePath = "api/before";
 // let thisModule;
-const thisModule = require("./../../app/" + thisModulePath);
-const thisConfig = require("./../../app/configuration/main.js");
-const thisCreateKey = require("./../../app/cache/create-key.js");
-const thisCreateItem = require("./../../app/cache/create-item.js");
-
 
 // // mock dependencies
 // const proxyquire = require("proxyquire").noCallThru();
@@ -35,7 +36,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		var _key1 = thisCreateKey("string");
 		var _key2 = thisCreateKey("/matchMe.html");
-		var _obj = {  };
+		var _obj = {};
 		_obj[_key1] = thisCreateItem("string", "value-HTML");
 		_obj[_key2] = thisCreateItem("/matchMe.html", "matchMe-HTML");
 		global.window.localStorage.setItem("lakka", JSON.stringify(_obj));
@@ -597,7 +598,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should return the item for this uri if it's fresh", (() => {
 			var _key1 = thisCreateKey("string");
-			var _obj = { };
+			var _obj = {};
 			_obj[_key1] = thisCreateItem("string", "value-HTML", { "Expires": (new Date(new Date(new Date().getTime() + (1000 * 60 * 60)).getTime())) });
 			global.window.localStorage.setItem("lakka", JSON.stringify(_obj));
 			thisModule("string").should.be.an("object");
@@ -606,7 +607,7 @@ describe(`The module "${thisModulePath}"`, () => {
 		it("should purge the cache from stale items", (() => {
 			var _key1 = thisCreateKey("string");
 			var _key2 = thisCreateKey("string-2");
-			var _obj = {  };
+			var _obj = {};
 			_obj[_key1] = thisCreateItem("string", "value-HTML", { "Expires": (new Date(new Date(new Date().getTime() - (1000 * 60 * 60)).getTime())) });
 			_obj[_key2] = thisCreateItem("string-2", "value-HTML", { "Expires": (new Date(new Date(new Date().getTime() + (1000 * 60 * 60)).getTime())) });
 			global.window.localStorage.setItem("lakka", JSON.stringify(_obj));
@@ -623,7 +624,7 @@ describe(`The module "${thisModulePath}"`, () => {
 
 		it("should throw if the item for this uri is stale", (() => {
 			var _key1 = thisCreateKey("string");
-			var _obj = {  };
+			var _obj = {};
 			_obj[_key1] = thisCreateItem("string", "value-HTML", { "Expires": (new Date(new Date(new Date().getTime() - (1000 * 60 * 60)).getTime())) });
 			global.window.localStorage.setItem("lakka", JSON.stringify(_obj));
 			try {

@@ -71,10 +71,11 @@ var lakkaXHR = function (uri, callback) {
 	_httpRequest.send();
 };
 
-// define a friendly location
-var uri = 'http://www.corsify.me/http:/shaky-library.surge.sh';
+// define a friendly location with CORS headers
+// proxy from https://github.com/martinkr/corsify
+var uri = 'http://localhost:3001/http:/shaky-library.surge.sh';
 
 // make the lakka-enhanced request
 lakkaXHR(uri, function callback(response) {
-	console.log("Received response from " + response.statusText, ": " ,response.responseText.slice(0, 45)+"... ");
+	console.log("Received response from " + response.statusText, ": ", response.responseText.slice(0, 45) + "... ");
 });

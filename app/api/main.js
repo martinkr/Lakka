@@ -32,13 +32,13 @@
  * @author Martin Krause <github@mkrause.info>
  */
 
-const after = require("./../api/after.js");
-const before = require("./../api/before.js");
-const cacheFacade = require("./../facade/localstorage.js");
-const configuration = require("./../configuration/main.js");
+import after from "./../api/after";
+import before from "./../api/before";
+import cacheFacade from "./../facade/localstorage";
+import configuration from "./../configuration/main";
 
 // API
-module.exports = {
+const api = {
 
 	/**
 	 * Sets the minutes (Number) we should cache items for. Defaut value is 60 minutes.
@@ -152,3 +152,6 @@ module.exports = {
 	"before": (uri, options) => before(uri, options)
 
 };
+
+
+export default api;

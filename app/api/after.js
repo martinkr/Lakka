@@ -22,23 +22,23 @@
  * @author Martin Krause <github@mkrause.info>
  */
 
-const configuration = require("./../configuration/main.js");
+import configuration from "./../configuration/main";
+
+import validStatusCode from "./../header/valid-status-code";
+import validCacheControl from "./../header/valid-cache-control";
+import calculateValidity from "./../cache/calculate-validity";
+import validContentType from "./../header/valid-content-type";
+import cache from "./../facade/localstorage";
+import createKey from "./../cache/create-key";
+import createItem from "./../cache/create-item";
+import throwIfInvalid from "./../utils/throw-invalid";
+import getHeaderValue from "./../header/utils/get-value";
+import checkHeaderValue from "./../header/utils/check-value";
+import setToCache from "./../cache/set-item";
+import patternMatch from "./../pattern-match/main";
+
 const defaultMinutes = configuration.get("minutes");
 const defaultMiliseconds = defaultMinutes * 60000;
-
-const validStatusCode = require("./../header/valid-status-code.js");
-const validCacheControl = require("./../header/valid-cache-control.js");
-const calculateValidity = require("./../cache/calculate-validity.js");
-const validContentType = require("./../header/valid-content-type.js");
-const cache = require("./../facade/localstorage.js");
-const createKey = require("./../cache/create-key.js");
-const createItem = require("./../cache/create-item.js");
-const throwIfInvalid = require("./../utils/throw-invalid.js");
-const getHeaderValue = require("./../header/utils/get-value.js");
-const checkHeaderValue = require("./../header/utils/check-value.js");
-const setToCache = require("./../cache/set-item.js");
-const patternMatch = require("./../pattern-match/main.js");
-
 /**
  * Checks if the given URI is part of the include / exclude pattern or throws an Error.
  * @param {String} uri the uri for the request
@@ -83,7 +83,7 @@ const _checkPatterns = (uri) => {
  * @param {Object} options the options for this request. eg options.headers.Content-Type
  * @return {Object|Error} the cached item or an Error if this url does not have an item which is stil fresh
  */
-module.exports = (uri, responseText, statusCode, options) => {
+const main = (uri, responseText, statusCode, options) => {
 
 	// we're only accepting a String as the first, a String as the second, a Number or String as the third and an Object as the fourth parameter
 	if (typeof (uri) !== "string" ||
@@ -107,7 +107,7 @@ module.exports = (uri, responseText, statusCode, options) => {
 		// check if the content-type is a cachable one
 		checkHeaderValue(validContentType)(options)("Content-Type");
 		// check if the expires header has a future date or there's no expires header
-		throwIfInvalid( calculateValidity("", getHeaderValue(options.headers)("Expires")(null), defaultMiliseconds) >= Date.now() );
+		throwIfInvalid(calculateValidity("", getHeaderValue(options.headers)("Expires")(null), defaultMiliseconds) >= Date.now());
 
 	} catch (err) {
 		throw new Error();
@@ -117,7 +117,7 @@ module.exports = (uri, responseText, statusCode, options) => {
 	let _item;
 	try {
 		_item = createItem(uri, responseText, options.headers);
-		setToCache(cache)(createKey(uri))( _item );
+		setToCache(cache)(createKey(uri))(_item);
 	} catch (err) {
 		// just a safety net
 		/* istanbul ignore next */
@@ -127,3 +127,5 @@ module.exports = (uri, responseText, statusCode, options) => {
 	return _item;
 
 };
+
+export default main;

@@ -23,14 +23,14 @@
  * @author Martin Krause <github@mkrause.info>
  */
 
-const configuration = require("./../configuration/main.js");
-const patternMatch = require("./../pattern-match/main.js");
-const validCacheControl = require("./../header/valid-cache-control.js");
-const validContentType = require("./../header/valid-content-type.js");
-const cache = require("./../facade/localstorage.js");
-const createKey = require("./../cache/create-key.js");
-const checkHeaderValue = require("./../header/utils/check-value.js");
-const getFromCache = require("./../cache/get-item.js");
+import configuration from "./../configuration/main";
+import patternMatch from "./../pattern-match/main";
+import validCacheControl from "./../header/valid-cache-control";
+import validContentType from "./../header/valid-content-type";
+import cache from "./../facade/localstorage";
+import createKey from "./../cache/create-key";
+import checkHeaderValue from "./../header/utils/check-value";
+import getFromCache from "./../cache/get-item";
 
 /**
  * Checks if the given URI is part of the include / exclude pattern or throws an Error.
@@ -75,9 +75,9 @@ const _checkPatterns = (uri) => {
  * @param {Object} options the options for this request. eg options.headers.Content-Type
  * @return {Object|Error} the cached item or an Error if this url does not have an item which is stil fresh
  */
-module.exports = (uri, options) => {
+const main = (uri, options) => {
 	// we're only accepting strings as the first and an optional object as second parameter
-	if (typeof (uri) !== "string" || (options && options instanceof Object && options.constructor === Object ) === false ) {
+	if (typeof (uri) !== "string" || (options && options instanceof Object && options.constructor === Object) === false) {
 		throw new Error();
 	}
 	try {
@@ -97,3 +97,4 @@ module.exports = (uri, options) => {
 	}
 
 };
+export default main;

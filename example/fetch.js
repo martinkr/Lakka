@@ -49,7 +49,6 @@ var lakkaFetch = function (uri) {
 
 			/** Handle the response, push it throught the lakka cache */
 			.then(function (data) {
-
 				var _uri, _statusCode, _responseText, _options, _cacheItem;
 
 				// collect all data for lakka
@@ -85,8 +84,9 @@ var lakkaFetch = function (uri) {
 	}
 };
 
-// define a friendly location
-var uri = 'http://www.corsify.me/http:/shaky-library.surge.sh';
+// define a friendly location with CORS headers
+// proxy from https://github.com/martinkr/corsify
+var uri = 'http://localhost:3001/http:/shaky-library.surge.sh';
 
 // make the lakka-enhanced request
 lakkaFetch(uri).then(function callback(response) {

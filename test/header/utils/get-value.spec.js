@@ -23,11 +23,10 @@
 
 /* eslint-env mocha */
 
+import thisModule from "./../../../app/header/utils/get-value";
 const thisModulePath = "header/utils/get-value";
-const thisModule = require("./../../../app/" + thisModulePath);
 
-
-let	headers = {
+let headers = {
 	"X-Foo": "foo",
 	"X-Bar": "bar"
 };

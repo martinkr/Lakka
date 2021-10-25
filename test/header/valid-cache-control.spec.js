@@ -19,21 +19,21 @@
 /* eslint-env mocha */
 
 
+import thisModule from "./../../app/header/valid-cache-control";
 const thisModulePath = "header/valid-cache-control";
-const thisModule = require("./../../app/" + thisModulePath);
 
 const headersIgnore = [{
-		"pattern": "must-revalidate",
-		"content": "must-revalidate"
-	},
-	{
-		"pattern": "no-store",
-		"content": "no-store"
-	},
-	{
-		"pattern": "no-cache",
-		"content": "no-store"
-	},
+	"pattern": "must-revalidate",
+	"content": "must-revalidate"
+},
+{
+	"pattern": "no-store",
+	"content": "no-store"
+},
+{
+	"pattern": "no-cache",
+	"content": "no-store"
+},
 ];
 
 

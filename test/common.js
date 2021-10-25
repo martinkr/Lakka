@@ -12,7 +12,7 @@ global.chai.use(global.sinonChai);
 // global.chaiAsPromised = require("chai-as-promised");
 // global.chai.use(global.chaiAsPromised);
 
-global.ENV = "MOCHA";
+global.ENV = "test";
 
 if (!global.window) {
 	global.window = {};

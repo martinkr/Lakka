@@ -2,7 +2,18 @@
   "presets": [
     "@babel/preset-env"
   ],
+  "plugins": [
+    [
+      "@babel/transform-runtime"
+    ]
+  ],
   "env": {
+    "test": {
+      "plugins": [
+        "mockable-imports",
+        "istanbul"
+      ]
+    },
     "production": {
       "presets": [
         "minify"

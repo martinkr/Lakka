@@ -9,8 +9,8 @@
 
 /* eslint-env mocha */
 
+import thisModule from "./../../app/cache/check-freshness";
 const thisModulePath = "cache/check-freshness";
-const thisModule = require("./../../app/" + thisModulePath);
 
 describe(`The module "${thisModulePath}"`, () => {
 
@@ -58,11 +58,11 @@ describe(`The module "${thisModulePath}"`, () => {
 	describe("should work as expected. It:", () => {
 
 		it("should return false if there item is stale", (() => {
-			thisModule({"until": Date.now() - 10000}).should.be.false;
+			thisModule({ "until": Date.now() - 10000 }).should.be.false;
 		}));
 
 		it("should return true if there item is fresh", (() => {
-			thisModule({"until": Date.now() + 10000}).should.be.true;
+			thisModule({ "until": Date.now() + 10000 }).should.be.true;
 		}));
 
 	});

@@ -18,8 +18,8 @@
  * @param {Array} patterns an array of regular expressions
  * @return {Boolean} true if there's a match
  */
-module.exports = (uri, patterns) => {
-	if ( typeof(uri) !== "string" || Array.isArray(patterns) !== true ) {
+const main = (uri, patterns) => {
+	if (typeof (uri) !== "string" || Array.isArray(patterns) !== true) {
 		throw new Error();
 	}
 
@@ -32,3 +32,4 @@ module.exports = (uri, patterns) => {
 		});
 
 };
+export default main;

@@ -19,8 +19,11 @@
  * @param {Any} value the value to check
  * @return {Any|Error} throws an error if the value evalutes to false
  */
-module.exports = (value) => {
+const main = (value) => {
 	if (!value && value !== 0 || value instanceof Error) {
 		throw new Error();
 	}
 }
+
+
+export default main;

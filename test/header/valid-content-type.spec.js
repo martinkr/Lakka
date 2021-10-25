@@ -21,8 +21,8 @@
 
 /* eslint-env mocha */
 
+import thisModule from "./../../app/header/valid-content-type";
 const thisModulePath = "header/valid-content-type";
-const thisModule = require("./../../app/" + thisModulePath);
 
 // these are the ones being detested
 const validTyes = [

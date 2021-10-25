@@ -12,7 +12,7 @@
  * @author Martin Krause <github@mkrause.info>
  */
 
-const checkFreshness = require("./../cache/check-freshness.js");
+import checkFreshness from "./../cache/check-freshness.js";
 
 /**
  * Curried function returning the item stored below "key" from "cache".
@@ -22,7 +22,7 @@ const checkFreshness = require("./../cache/check-freshness.js");
  * @param {Object} cache the cache to use
  * @return {Object|Error} the cached item or an Error if we should ignore this uri
  */
-module.exports = (cache) =>
+const main = (cache) =>
 	/** @param {String} key the key for the lookup @return {function} */
 	(key) => {
 		const item = cache.get(key);
@@ -34,4 +34,5 @@ module.exports = (cache) =>
 			throw new Error();
 		}
 		return item;
-};
+	};
+export default main;

@@ -21,9 +21,8 @@
 
 /* eslint-env mocha */
 
-
+import thisModule from "./../../app/header/valid-status-code";
 const thisModulePath = "header/valid-status-code";
-const thisModule = require("./../../app/" + thisModulePath);
 
 // these are the ones being detested
 const validTyes = [

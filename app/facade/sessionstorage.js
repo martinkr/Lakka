@@ -47,7 +47,7 @@ const _proxy = (action, key, value) => {
 				return window.sessionStorage.removeItem(key);
 
 			case "has":
-				return  Boolean(window.sessionStorage.getItem(key));
+				return Boolean(window.sessionStorage.getItem(key));
 
 		}
 	} catch (err) {
@@ -58,7 +58,7 @@ const _proxy = (action, key, value) => {
 
 
 // API
-module.exports = {
+const api = {
 
 	/**
 	 * Retrives a value for a given key or null
@@ -101,3 +101,5 @@ module.exports = {
 	 */
 	"has": (key) => _proxy("has", key),
 };
+
+export default api;

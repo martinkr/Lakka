@@ -1,45 +1,62 @@
+/**
+ * Specs for setting a specific item from a given cache
+ *
+ * @copyright 2017 Martin Krause <github@mkrause.info> (http://martinkr.github.io)
+ * @license MIT license: https://opensource.org/licenses/MIT
+ *
+ * @author Martin Krause <github@mkrause.info>
+ */
 
-// /**
-//  * Specs for the main entry point
-//  * This module provides the external api of chigai-core
-//  * The specs are true end-to-end tests.
-//  *
-//  * @copyright 2016, 2017 Martin Krause <github@mkrause.info> (http://martinkr.github.io)
-//  * @license MIT license: https://opensource.org/licenses/MIT
-//  *
-//  * @author Martin Krause <github@mkrause.info>
-//  */
+/* eslint-env mocha */
 
-// /* eslint-env mocha */
+import * as thisModule from "./../app/main";
 
-// // const fs = require("fs-extra-plus");
-// const path = require("path");
+const thisModulePath = "main";
 
-
-// const thisModulePath = "main";
-// const thisModule = require("./../app/" + thisModulePath);
+describe(`The module "${thisModulePath}"`, () => {
 
 
-// describe(`the module ${thisModulePath}`, () => {
 
-// 	afterEach((done) => {
-// 		done();
-// 	});
+    before((done) => {
+        done();
+    });
 
-// 	beforeEach((done) => {
-// 		done();
-// 	});
 
-// 	after((done) => {
-// 		done();
-// 	});
 
-// 	describe("should provide an API for regression testing. It:", () => {
+    after((done) => {
+        done();
+    });
 
-// 		xit("should export a function \"regression\"", (async () => {
-// 			thisModule.regression.should.be.a("function");
-// 		}));
+    describe("should provide an unified API. It:", () => {
 
-// 	});
+        it("should export a sync function \"configuration\"", () => {
+            thisModule.configuration.should.be.a("function");
+        });
 
-// });
+        it("should export a sync function \"time\"", () => {
+            thisModule.time.should.be.a("function");
+        });
+
+        it("should export a sync function \"recognize\"", () => {
+            thisModule.recognize.should.be.a("function");
+        });
+
+        it("should export a sync function \"ignore\"", () => {
+            thisModule.ignore.should.be.a("function");
+        });
+
+        it("should export a sync function \"flush\"", () => {
+            thisModule.flush.should.be.a("function");
+        });
+
+        it("should export a sync function \"after\"", () => {
+            thisModule.after.should.be.a("function");
+        });
+
+        it("should export a sync function \"before\"", () => {
+            thisModule.before.should.be.a("function");
+        });
+
+    });
+
+});

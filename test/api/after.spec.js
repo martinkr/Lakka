@@ -11,12 +11,14 @@
 
 /* eslint-env mocha */
 
+import thisModule from "./../../app/api/after";
+import thisConfig from "./../../app/configuration/main";
+import thisCreateKey from "./../../app/cache/create-key";
+import thisCreateItem from "./../../app/cache/create-item";
+
 const thisModulePath = "api/after";
+
 // let thisModule;
-const thisModule = require("./../../app/" + thisModulePath);
-const thisConfig = require("./../../app/configuration/main.js");
-const thisCreateKey = require("./../../app/cache/create-key.js");
-const thisCreateItem = require("./../../app/cache/create-item.js");
 
 
 // // mock dependencies
@@ -43,7 +45,7 @@ describe(`The module "${thisModulePath}"`, () => {
 		// stubAndReturn(true);
 	})
 
-	after(() => {})
+	after(() => { })
 
 
 	describe("should provide an unified API. It:", () => {
@@ -439,7 +441,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			};
 		});
 
-		after(() => {});
+		after(() => { });
 
 		it("should not throw if there's no headers-property", (() => {
 			try {
@@ -563,7 +565,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			};
 		});
 
-		after(() => {});
+		after(() => { });
 		it("should not throw if the Content-Type-Header is set to \"application/json\"", (() => {
 			try {
 				_options.headers["Content-Type"] = "application/json";
@@ -642,7 +644,7 @@ describe(`The module "${thisModulePath}"`, () => {
 			};
 		});
 
-		after(() => {});
+		after(() => { });
 
 		it("should not throw if the Expires-Header has a future date", (() => {
 			try {

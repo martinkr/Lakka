@@ -154,4 +154,4 @@ Flush the lakka cache. Remove all items.
 ## License
 Licensed under the [MIT license](http://www.opensource.org/licenses/mit-license.php).
 
-Copyright (c) 2016, 2017, 2018 Martin Krause <github@mkrause.info> [http://martinkr.github.io)](http://martinkr.github.io)
+Copyright (c) 2016 - 2021 Martin Krause <github@mkrause.info> [http://martinkr.github.io)](http://martinkr.github.io)

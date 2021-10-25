@@ -91,7 +91,7 @@ const _proxy = (action, key, value) => {
 
 
 // API
-module.exports = {
+const api = {
 
 	/**
 	 * Retrives a value for a given key or null
@@ -101,7 +101,7 @@ module.exports = {
 	 * @param {String} key the key for the localStorage item to get
 	 * @return {Any} the localStorages response, null if there's no item
 	 */
-	"get":(key) => _proxy("get", key),
+	"get": (key) => _proxy("get", key),
 
 	/**
 	 * Stores a key/value pair
@@ -112,7 +112,7 @@ module.exports = {
 	 * @param {String} value the value for setting a value
 	 * @return {Any} the localStorages response
 	 */
-	"set":(key, value) => _proxy("set", key, value),
+	"set": (key, value) => _proxy("set", key, value),
 
 	/**
 	 * Deletes an item
@@ -122,7 +122,7 @@ module.exports = {
 	 * @param {String} key the key for the localStorage item to delete
 	 * @return {Any} the localStorages response
 	 */
-	"del":(key) => _proxy("del", key),
+	"del": (key) => _proxy("del", key),
 
 	/**
 	 * Flushes the complete cache
@@ -134,3 +134,6 @@ module.exports = {
 	"flush": () => _proxy("flush", "*")
 
 };
+
+
+export default api;

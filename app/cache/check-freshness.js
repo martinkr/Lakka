@@ -20,4 +20,5 @@
  * @param {Object} cacheItem che cache item
  * @return {Boolean} true if still fresh
  */
-module.exports = (cacheItem) => !!(cacheItem && cacheItem.until && cacheItem.until >= Date.now());
+const main = (cacheItem) => !!(cacheItem && cacheItem.until && cacheItem.until >= Date.now());
+export default main;

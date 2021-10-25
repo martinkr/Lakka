@@ -9,9 +9,8 @@
 
 /* eslint-env mocha */
 
+import thisModule from "./../../app/cache/set-item";
 const thisModulePath = "cache/set-item";
-const thisModule = require("./../../app/" + thisModulePath);
-
 
 // mock the cache object
 // spy on the call, check parameters passed to cache
