@@ -39,7 +39,7 @@
     "esm": "^3.2.25"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
+    "@babel/core": "^7.26.10",
     "@babel/plugin-transform-runtime": "^7.15.8",
     "@babel/preset-env": "^7.0.0",
     "@babel/register": "^7.15.3",
