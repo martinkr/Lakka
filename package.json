@@ -35,13 +35,13 @@
     "instrument": false
   },
   "dependencies": {
-    "@babel/runtime": "^7.15.4",
+    "@babel/runtime": "^7.26.10",
     "esm": "^3.2.25"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.15.8",
-    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-env": "^7.27.1",
     "@babel/register": "^7.15.3",
     "babel-loader": "^8.2.2",
     "babel-plugin-istanbul": "^6.0.0",
